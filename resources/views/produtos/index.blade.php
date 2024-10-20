@@ -10,7 +10,7 @@
     </h3>
 
     <div class="table-responsive">
-        <table class="table tab-le-hover table-stripped">
+        <table class="table tab-le-hover">
             <thead>
                 <th>Produto</th>
                 <th>Gênero</th>

@@ -45,7 +45,12 @@ class CategoriasController extends Controller
 
     public function show(Categoria $categoria)
     {
-        //
+        $produtos = $categoria->produtos;
+
+        return view('categorias.show', [
+            'categoria' => $categoria,
+            'produtos' => $produtos
+        ]);
     }
 
     public function edit(Categoria $categoria)
