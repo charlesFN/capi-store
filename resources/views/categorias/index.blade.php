@@ -11,7 +11,7 @@
     <div class="table-responsive">
         <table class="table table-hover table-striped">
             <thead {{-- class="thead-light" --}}>
-                <th>Nome</th>
+                <th>Categoria</th>
                 <th>Qtd. Produtos</th>
                 <th>Opções</th>
             </thead>
@@ -27,11 +27,10 @@
                         <td class="d-flex">
                             <a href="" class="btn btn-info"><i class="fas fa-eye"></i></a>
                             <a href="{{ route('categorias.edit', ['categoria' => $categoria]) }}" class="btn btn-warning mx-2"><i class="fas fa-edit"></i></a>
-                            <form action="{{ route('categorias.delete') }}" method="post">
+                            <form action="{{ route('categorias.delete', ['categoria' => $categoria]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
 
-                                <input type="hidden" name="id" value="{{ $categoria->id }}">
                                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                             </form>
                         </td>

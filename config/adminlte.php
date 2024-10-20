@@ -304,6 +304,11 @@ return [
             'text' => 'Categorias',
             'url' => '/categorias',
             'icon' => 'fas fa-solid fa-list'
+        ],
+        [
+            'text' => 'Produtos',
+            'url' => '/produtos',
+            'icon' => 'fas fa-solid fa-list'
         ]
         /* [
             'type' => 'navbar-search',

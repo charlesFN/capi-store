@@ -53,12 +53,9 @@ class CategoriasController extends Controller
         return view('categorias.edit', compact('categoria'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Categoria $categoria)
     {
-        $categoria = Categoria::findOrFail($request->id);
-
         $data = $request->validate([
-            'id' => 'required',
             'nome_categoria' => ['required', Rule::unique('categorias')->ignore($categoria->id), 'string','max:50']
         ]);
 
@@ -68,20 +65,18 @@ class CategoriasController extends Controller
             return redirect()->route('categorias.index')->with('success',$response->content());
         }
         else {
-            return redirect()->route('categorias.index')->with('error', 'não foi possível atualizar a categoria.');
+            return redirect()->route('categorias.index')->with('error', 'Não foi possível atualizar a categoria.');
         }
     }
 
-    public function destroy(Request $request)
+    public function destroy(Categoria $categoria)
     {
-        $categoria = Categoria::findOrFail($request->id);
-
         $response = $this->categoria_service->delete($categoria);
 
         if ($response->status() == 200) {
             return redirect()->route('categorias.index')->with('success',$response->content());
         } else {
-            return redirect()->route('categorias.index')->with('error', 'Não foi possível excluir a categoria.');
+            return redirect()->route('categorias.index')->with('error', 'Não foi possível deletar a categoria.');
         }
     }
 }

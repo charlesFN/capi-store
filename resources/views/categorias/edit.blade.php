@@ -3,12 +3,11 @@
 @section('title', "Editar Categoria - $categoria->nome_categoria")
 
 @section('content')
-<div class="container pt-3">
-    <form action="{{ route('categorias.update') }}" method="post">
+<div class="pt-3">
+    <form action="{{ route('categorias.update', ['categoria' => $categoria]) }}" method="post">
         @csrf
         @method('PUT')
 
-        <input type="hidden" name="id" value="{{ $categoria->id }}">
         <div class="form-row col-12">
             <label for="nomeCategoria">Nome da Categoria</label>
             <input required type="text" name="nome_categoria" id="nomeCategoria" class="form-control" value="{{ $categoria->nome_categoria }}">

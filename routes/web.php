@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\CategoriasController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProdutosController;
+use App\Http\Controllers\CategoriasController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,7 +23,14 @@ Route::get('/categorias', [CategoriasController::class, 'index'])->name('categor
 Route::get('/categorias/create', [CategoriasController::class, 'create'])->name('categorias.create');
 Route::post('/categorias/store', [CategoriasController::class, 'store'])->name('categorias.store');
 Route::get('/categorias/edit/{categoria}', [CategoriasController::class, 'edit'])->name('categorias.edit');
-Route::put('/categorias/update', [CategoriasController::class,'update'])->name('categorias.update');
-Route::delete('/categorias/delete/', [CategoriasController::class, 'destroy'])->name('categorias.delete');
+Route::put('/categorias/update/{categoria}', [CategoriasController::class,'update'])->name('categorias.update');
+Route::delete('/categorias/delete/{categoria}', [CategoriasController::class, 'destroy'])->name('categorias.delete');
+
+Route::get('/produtos', [ProdutosController::class, 'index'])->name('produtos.index');
+Route::get('/produtos/create', [ProdutosController::class, 'create'])->name('produtos.create');
+Route::post('/produtos/store', [ProdutosController::class,'store'])->name('produtos.store');
+Route::get('/produtos/edit/{produto}', [ProdutosController::class, 'edit'])->name('produtos.edit');
+Route::put('/produtos/update/{produto}', [ProdutosController::class, 'update'])->name('produtos.update');
+Route::delete('/produtos/delete/{produto}', [ProdutosController::class, 'destroy'])->name('produtos.delete');
 
 require __DIR__.'/auth.php';

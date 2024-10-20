@@ -17,13 +17,13 @@ class CategoriaService
     {
         $categoria->update($data);
 
-        return response("Categoria atualizada com sucesso!",200);
+        return response("Categoria atualizada com sucesso!", 200);
     }
 
     public function delete(Categoria $categoria)
     {
         $categoria->delete();
 
-        return response("Categoria deletada com sucesso!",200);
+        return response("Categoria deletada com sucesso!", 200);
     }
 }
