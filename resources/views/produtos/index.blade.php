@@ -28,7 +28,7 @@
                                 <td>{{ $produto->categoria->nome_categoria }}</td>
                                 <td>{{ $produto->valor }}</td>
                                 <td class="d-flex">
-                                    <a href="" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('produtos.show', ['produto' => $produto]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('produtos.edit', ['produto' => $produto]) }}" class="btn btn-warning mx-2"><i class="fas fa-edit"></i></a>
                                     <form action="{{ route('produtos.delete', ['produto' => $produto]) }}" method="post">
                                         @csrf

@@ -30,6 +30,7 @@ Route::delete('/categorias/delete/{categoria}', [CategoriasController::class, 'd
 Route::get('/produtos', [ProdutosController::class, 'index'])->name('produtos.index');
 Route::get('/produtos/create', [ProdutosController::class, 'create'])->name('produtos.create');
 Route::post('/produtos/store', [ProdutosController::class,'store'])->name('produtos.store');
+Route::get('/produtos/show/{produto}', [ProdutosController::class, 'show'])->name('produtos.show');
 Route::get('/produtos/edit/{produto}', [ProdutosController::class, 'edit'])->name('produtos.edit');
 Route::put('/produtos/update/{produto}', [ProdutosController::class, 'update'])->name('produtos.update');
 Route::delete('/produtos/delete/{produto}', [ProdutosController::class, 'destroy'])->name('produtos.delete');
