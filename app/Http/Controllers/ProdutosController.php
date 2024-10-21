@@ -43,9 +43,11 @@ class ProdutosController extends Controller
         $response = $this->produto_service->save($data);
 
         if ($response->status() == '200') {
-            return redirect()->route('produtos.index')->with('success', $response->content());
+            session()->flash('success', $response->content());
+            return redirect()->route('produtos.index');
         } else {
-            return redirect()->route('produtos.index')->with('error', 'Não foi possível cadastrar o produto.');
+            session()->flash('error', 'Não foi possível cadastrar o produto.');
+            return redirect()->route('produtos.index');
         }
     }
 
@@ -76,10 +78,12 @@ class ProdutosController extends Controller
         $response = $this->produto_service->update($data, $produto);
 
         if ($response->status() == 200) {
-            return redirect()->route('produtos.index')->with('success',$response->content());
+            session()->flash('success', $response->content());
+            return redirect()->route('produtos.index');
         }
         else {
-            return redirect()->route('produtos.index')->with('error', 'Não foi possível atualizar o produto.');
+            session()->flash('error', 'Não foi possível atualizar o produto.');
+            return redirect()->route('produtos.index');
         }
     }
 
@@ -88,9 +92,11 @@ class ProdutosController extends Controller
         $response = $this->produto_service->delete($produto);
 
         if ($response->status() == 200) {
-            return redirect()->route('produtos.index')->with('success',$response->content());
+            session()->flash('success', $response->content());
+            return redirect()->route('produtos.index');
         } else {
-            return redirect()->route('produtos.index')->with('error', 'Não foi possível deletar o produto.');
+            session()->flash('error', 'Não foi possível deletar o produto');
+            return redirect()->route('produtos.index');
         }
     }
 }

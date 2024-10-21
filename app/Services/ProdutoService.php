@@ -24,6 +24,6 @@ class ProdutoService
     {
         $produto->delete();
 
-        return response("Categoria deletado com sucesso!", 200);
+        return response("Produto deletado com sucesso!", 200);
     }
 }

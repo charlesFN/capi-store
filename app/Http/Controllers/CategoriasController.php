@@ -37,9 +37,11 @@ class CategoriasController extends Controller
         $response = $this->categoria_service->save($data);
 
         if ($response->status() == 200) {
-            return redirect()->route('categorias.index')->with('success',$response->content());
+            session()->flash('success', $response->content());
+            return redirect()->route('categorias.index');
         } else {
-            return redirect()->route('categorias.index')->with('error', 'Não foi possível criar a categoria.');
+            session()->flash('error', 'Não foi possível criar a categoria.');
+            return redirect()->route('categorias.index');
         }
     }
 
@@ -67,10 +69,12 @@ class CategoriasController extends Controller
         $response = $this->categoria_service->update($data, $categoria);
 
         if ($response->status() == 200) {
-            return redirect()->route('categorias.index')->with('success',$response->content());
+            session()->flash('success', $response->content());
+            return redirect()->route('categorias.index');
         }
         else {
-            return redirect()->route('categorias.index')->with('error', 'Não foi possível atualizar a categoria.');
+            session()->flash('error', 'Não foi possível atualizar a categoria.');
+            return redirect()->route('categorias.index');
         }
     }
 
@@ -79,9 +83,11 @@ class CategoriasController extends Controller
         $response = $this->categoria_service->delete($categoria);
 
         if ($response->status() == 200) {
-            return redirect()->route('categorias.index')->with('success',$response->content());
+            session()->flash('success', $response->content());
+            return redirect()->route('categorias.index');
         } else {
-            return redirect()->route('categorias.index')->with('error', 'Não foi possível deletar a categoria.');
+            session()->flash('error', 'Não foi possível deletar a categoria.');
+            return redirect()->route('categorias.index');
         }
     }
 }
