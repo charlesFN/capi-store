@@ -20,8 +20,9 @@ class ProdutoService
         return response("Produto atualizado com sucesso!", 200);
     }
 
-    public function delete(Produto $produto)
+    public function delete($id_produto)
     {
+        $produto = Produto::findOrFail($id_produto);
         $produto->delete();
 
         return response("Produto deletado com sucesso!", 200);

@@ -87,9 +87,9 @@ class ProdutosController extends Controller
         }
     }
 
-    public function destroy(Produto $produto)
+    public function destroy(Request $request)
     {
-        $response = $this->produto_service->delete($produto);
+        $response = $this->produto_service->delete($request->id_produto);
 
         if ($response->status() == 200) {
             session()->flash('success', $response->content());

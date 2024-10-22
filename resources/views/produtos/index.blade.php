@@ -30,12 +30,7 @@
                                 <td class="d-flex">
                                     <a href="{{ route('produtos.show', ['produto' => $produto]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('produtos.edit', ['produto' => $produto]) }}" class="btn btn-warning mx-2"><i class="fas fa-edit"></i></a>
-                                    <form action="{{ route('produtos.delete', ['produto' => $produto]) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                    </form>
+                                    <button onclick="excluirProduto(`{{ $produto->id }}`)" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                         @empty
@@ -52,7 +47,35 @@
         </div>
     </div>
 
+    {{-- Formulário de exclusão de produtos --}}
+    <form action="{{ route('produtos.delete') }}" method="post" id="excluirProduto">
+        @csrf
+        @method('DELETE')
+
+        <input type="hidden" name="id_produto" id="idProduto">
+    </form>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function excluirProduto(idProduto) {
+            Swal.fire({
+                title: "Deseja deletar este produto?",
+                text: "Você não será capaz de reverter isto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sim, prosseguir!",
+                cancelButtonText: "Não, cancelar!"
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    document.getElementById('idProduto').value = idProduto;
+                    $("#excluirProduto").submit();
+                }
+            })
+        }
+    </script>
 
     @if (session('error'))
         <script>
