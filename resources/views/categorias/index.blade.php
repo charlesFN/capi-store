@@ -25,12 +25,7 @@
                                 <td class="d-flex">
                                     <a href="{{ route('categorias.show', ['categoria' => $categoria]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('categorias.edit', ['categoria' => $categoria]) }}" class="btn btn-warning mx-2"><i class="fas fa-edit"></i></a>
-                                    <form action="{{ route('categorias.delete', ['categoria' => $categoria]) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                    </form>
+                                    <button @if(count($categoria->produtos) > 0) onclick="alertaCategoria()" @else onclick="excluirCategoria(`{{ $categoria->id }}`)" @endif class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                         @empty
@@ -47,7 +42,42 @@
         </div>
     </div>
 
+    {{-- Formulário de exclusão de categoria --}}
+    <form action="{{ route('categorias.delete') }}" method="post" id="excluirCategoria">
+        @csrf
+        @method('DELETE')
+
+        <input type="hidden" name="id_categoria" id="idCategoria">
+    </form>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function alertaCategoria() {
+            Swal.fire({
+                title: "Atenção!",
+                text: "Há um ou mais produtos nesta categoria, portanto ela não pode ser deletada",
+                icon: 'warning'
+            })
+        }
+        function excluirCategoria(idCategoria) {
+            Swal.fire({
+                title: "Deseja deletar esta categoria?",
+                text: "Você não será capaz de reverter isto!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sim, prosseguir!",
+                cancelButtonText: "Não, cancelar!"
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    document.getElementById('idCategoria').value = idCategoria;
+                    $("#excluirCategoria").submit();
+                }
+            })
+        }
+    </script>
 
     @if (session('error'))
         <script>

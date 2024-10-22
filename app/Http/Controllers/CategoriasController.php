@@ -78,9 +78,9 @@ class CategoriasController extends Controller
         }
     }
 
-    public function destroy(Categoria $categoria)
+    public function destroy(Request $request)
     {
-        $response = $this->categoria_service->delete($categoria);
+        $response = $this->categoria_service->delete($request->id_categoria);
 
         if ($response->status() == 200) {
             session()->flash('success', $response->content());

@@ -20,8 +20,9 @@ class CategoriaService
         return response("Categoria atualizada com sucesso!", 200);
     }
 
-    public function delete(Categoria $categoria)
+    public function delete($id_categoria)
     {
+        $categoria = Categoria::findOrFail($id_categoria);
         $categoria->delete();
 
         return response("Categoria deletada com sucesso!", 200);
