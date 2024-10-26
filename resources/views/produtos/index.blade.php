@@ -6,7 +6,7 @@
     <h3 class="py-3 d-flex justify-content-between">
         Todos os Produtos
 
-        <a href="{{ route('produtos.create') }}" class="btn btn-success"><i class="fas fa-plus mr-2"></i><span>Cadastrar Produto</span></a>
+        <a href="{{ route('produtos.create') }}" class="btn btn-success"><i class="fas fa-plus mr-2"></i><span>Adicionar Produto</span></a>
     </h3>
 
     <div class="card">

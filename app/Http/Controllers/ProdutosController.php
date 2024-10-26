@@ -33,7 +33,7 @@ class ProdutosController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
+        /* $data = $request->validate([
             'nome_produto' => 'required|unique:produtos,nome_produto|string|max:50',
             'id_categoria' => 'required|exists:categorias,id',
             'genero' => 'required|in:Nenhum,Feminino,Masculino,Unissex',
@@ -48,7 +48,7 @@ class ProdutosController extends Controller
         } else {
             session()->flash('error', 'Não foi possível cadastrar o produto.');
             return redirect()->route('produtos.index');
-        }
+        } */
     }
 
     public function show(Produto $produto)

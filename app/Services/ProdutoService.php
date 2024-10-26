@@ -2,15 +2,23 @@
 
 namespace App\Services;
 
+use App\Models\ImagensProduto;
 use App\Models\Produto;
 
 class ProdutoService
 {
-    public function save(array $data)
+    public function save(array $data, array $imagens)
     {
-        Produto::create($data);
+        $produto = Produto::create($data);
 
-        return response("Produto cadastrado com sucesso!", 200);
+        foreach ($imagens as $imagem) {
+            ImagensProduto::create([
+                'id_produto' => $produto->id,
+                'url_imagem' => $imagem['caminho_arquivo']
+            ]);
+        }
+
+        return response("Produto adicionado com sucesso!", 200);
     }
 
     public function update(array $data, Produto $produto)
