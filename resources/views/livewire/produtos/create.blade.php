@@ -7,7 +7,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form {{-- action="{{ route('produtos.store') }}" --}} wire:submit.prevent="save" method="post">
+            <form wire:submit.prevent="save" method="post">
                 @csrf
 
                 <div class="form-row">
@@ -55,10 +55,11 @@
                     </div>
                 </div>
                 @if(!empty($imagens))
-                    @foreach ($imagens as $imagem)
+                    @foreach ($imagens as $index => $imagem)
                         <div class="form-row">
-                            <div class="col-4 mb-2">
-                                <img src="{{ url($imagem['caminho_arquivo']) }}" style="max-height: 200px" class="w-100">
+                            <div class="col-4 mb-2" style="position: relative; height: 200px;">
+                                <img src="{{ url($imagem['caminho_arquivo']) }}" class="w-100">
+                                <button type="button" wire:click="removerImagem({{ $index }})" class="btn btn-danger btn-flutuante rounded-circle"><i class="fas fa-xmark"></i></button>
                             </div>
                         </div>
                     @endforeach

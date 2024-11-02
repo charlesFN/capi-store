@@ -50,6 +50,13 @@ class Create extends Component
         ];
 
         array_push($this->imagens, $data);
+
+        $this->imagem = null;
+    }
+
+    public function removerImagem($index)
+    {
+        array_splice($this->imagens, $index, 1);
     }
 
     public function save()
@@ -61,14 +68,19 @@ class Create extends Component
             'valor' => 'required|numeric'
         ]);
 
-        $response = $this->produto_service->save($data, $this->imagens);
-
-        if ($response->status() == '200') {
-            session()->flash('success', $response->content());
-            return redirect()->route('produtos.index');
+        if (empty($this->imagens)) {
+            session()->flash('error', 'É necessário adicionar pelo menos uma imagem para prosseguir.');
+            return redirect()->route('produtos.create');
         } else {
-            session()->flash('error', 'Não foi possível cadastrar o produto.');
-            return redirect()->route('produtos.index');
+            $response = $this->produto_service->save($data, $this->imagens);
+
+            if ($response->status() == '200') {
+                session()->flash('success', $response->content());
+                return redirect()->route('produtos.index');
+            } else {
+                session()->flash('error', 'Não foi possível cadastrar o produto.');
+                return redirect()->route('produtos.index');
+            }
         }
     }
 }
