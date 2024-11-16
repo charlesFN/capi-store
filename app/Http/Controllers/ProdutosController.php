@@ -71,7 +71,6 @@ class ProdutosController extends Controller
         $data = $request->validate([
             'nome_produto' => ['required', Rule::unique('produtos')->ignore($produto->id), 'string', 'max:50'],
             'id_categoria' => 'required|exists:categorias,id',
-            'genero' => 'required|in:Nenhum,Feminino,Masculino,Unissex',
             'valor' => 'required|numeric'
         ]);
 

@@ -16,7 +16,6 @@ class Create extends Component
 
     public $nome_produto;
     public $id_categoria;
-    public $genero;
     public $valor;
 
     public $imagem;
@@ -64,7 +63,6 @@ class Create extends Component
         $data = $this->validate([
             'nome_produto' => 'required|unique:produtos,nome_produto|string|max:50',
             'id_categoria' => 'required|exists:categorias,id',
-            'genero' => 'required|in:Nenhum,Feminino,Masculino,Unissex',
             'valor' => 'required|numeric'
         ]);
 

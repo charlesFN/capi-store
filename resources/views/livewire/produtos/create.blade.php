@@ -11,14 +11,14 @@
                 @csrf
 
                 <div class="form-row">
-                    <div class="form-group col-6">
+                    <div class="form-group col-4">
                         <label for="nomeProduto">Produto <span class="text-danger">*</span></label>
                         <input required type="text" wire:model.submit="nome_produto" id="nomeProduto" class="form-control" value="{{ old('nome_produto') }}">
                         @error('nome_produto')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-4">
                         <label for="nomeCategoria">Categoria <span class="text-danger">*</span></label>
                         <select wire:model.submit="id_categoria" id="nomeCategoria" class="form-control">
                             <option value="">Selecione uma categoria</option>
@@ -32,21 +32,7 @@
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-6">
-                        <label for="generoProduto">Gênero <span class="text-danger">*</span></label>
-                        <select required wire:model.submit="genero" id="generoProduto" class="form-control">
-                            <option value="Nenhum">Nenhum</option>
-                            <option value="Feminino">Feminino</option>
-                            <option value="Masculino">Masculino</option>
-                            <option value="Unissex">Unissex</option>
-                        </select>
-                        @error('genero')
-                            <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                    </div>
-                    <div class="form-group col-6">
+                    <div class="form-group col-4">
                         <label for="valorProduto">Valor (R$) <span class="text-danger">*</span></label>
                         <input required type="number" step="0.01" wire:model.submit="valor" id="valorProduto" class="form-control" value="{{ old('valor') }}">
                         @error('valor')

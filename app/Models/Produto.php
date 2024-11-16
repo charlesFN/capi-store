@@ -12,12 +12,8 @@ class Produto extends Model
     protected $fillable = [
         "id_categoria",
         "nome_produto",
-        "genero",
+        "imagem_capa",
         "valor"
-    ] ;
-
-    protected $casts = [
-        "genero"
     ];
 
     public function categoria()

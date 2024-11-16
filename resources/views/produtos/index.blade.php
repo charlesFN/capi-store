@@ -15,7 +15,6 @@
                 <table class="table tab-le-hover">
                     <thead>
                         <th>Produto</th>
-                        <th>Gênero</th>
                         <th>Categoria</th>
                         <th>Valor (R$)</th>
                         <th>Opções</th>
@@ -24,7 +23,6 @@
                         @forelse ($produtos as $produto)
                             <tr>
                                 <td>{{ $produto->nome_produto }}</td>
-                                <td>{{ $produto->genero }}</td>
                                 <td>{{ $produto->categoria->nome_categoria }}</td>
                                 <td>{{ $produto->valor }}</td>
                                 <td class="d-flex">

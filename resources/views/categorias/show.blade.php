@@ -16,19 +16,17 @@
                     <h6>Produtos da Categoria</h6>
                     <thead>
                         <th>Produto</th>
-                        <th>Gênero</th>
                         <th>Valor (R$)</th>
                     </thead>
                     <tbody>
                         @forelse ($produtos as $produto)
                             <tr>
                                 <td>{{ $produto->nome_produto }}</td>
-                                <td>{{ $produto->genero }}</td>
                                 <td>R$ {{ number_format($produto->valor, 2, ',', '.') }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3">Nenhum registro encontrado.</td>
+                                <td colspan="2">Nenhum registro encontrado.</td>
                             </tr>
                         @endforelse
                     </tbody>
