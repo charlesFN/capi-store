@@ -7,6 +7,7 @@ use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Services\ProdutoService;
+use Illuminate\Auth\Access\Gate;
 
 class ProdutosController extends Controller
 {

@@ -11,11 +11,13 @@ class ProdutoService
     {
         $produto = Produto::create($data);
 
-        foreach ($imagens as $imagem) {
-            ImagensProduto::create([
-                'id_produto' => $produto->id,
-                'url_imagem' => $imagem['caminho_arquivo']
-            ]);
+        if (!empty($imagens)) {
+            foreach ($imagens as $imagem) {
+                ImagensProduto::create([
+                    'id_produto' => $produto->id,
+                    'url_imagem' => $imagem['caminho_arquivo']
+                ]);
+            }
         }
 
         return response("Produto adicionado com sucesso!", 200);

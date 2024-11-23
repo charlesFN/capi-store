@@ -18,4 +18,15 @@ class HomeController extends Controller
             "produtos"=> $produtos
         ]);
     }
+
+    public function showProduct($id)
+    {
+        $produto = Produto::findOrFail($id);
+        $categorias = Categoria::orderBy('nome_categoria', 'asc')->limit(5)->get();
+
+        return view('show', [
+            "produto" => $produto,
+            "categorias" => $categorias
+        ]);
+    }
 }

@@ -303,12 +303,14 @@ return [
         [
             'text' => 'Categorias',
             'url' => '/categorias',
-            'icon' => 'fas fa-solid fa-list'
+            'icon' => 'fas fa-solid fa-list',
+            'can' => 'gestao-produtos'
         ],
         [
             'text' => 'Produtos',
             'url' => '/produtos',
-            'icon' => 'fas fa-solid fa-list'
+            'icon' => 'fas fa-solid fa-list',
+            'can' => 'gestao-produtos'
         ]
         /* [
             'type' => 'navbar-search',

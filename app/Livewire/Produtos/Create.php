@@ -17,6 +17,7 @@ class Create extends Component
     public $nome_produto;
     public $id_categoria;
     public $valor;
+    public $imagem_capa;
 
     public $imagem;
     public $imagens = [];
@@ -60,25 +61,32 @@ class Create extends Component
 
     public function save()
     {
-        $data = $this->validate([
+        $this->validate([
             'nome_produto' => 'required|unique:produtos,nome_produto|string|max:50',
             'id_categoria' => 'required|exists:categorias,id',
-            'valor' => 'required|numeric'
+            'valor' => 'required|numeric',
+            'imagem_capa' => ['required', 'file', File::types(['png', 'jpg', 'jpeg', 'jpe', 'webp'])]
         ]);
 
-        if (empty($this->imagens)) {
-            session()->flash('error', 'É necessário adicionar pelo menos uma imagem para prosseguir.');
-            return redirect()->route('produtos.create');
-        } else {
-            $response = $this->produto_service->save($data, $this->imagens);
+        $nome_arquivo = $this->imagem_capa->getClientOriginalName();
+        $this->imagem_capa->storeAs('public/imagens_produtos', $nome_arquivo);
+        $caminho_arquivo = "storage/imagens_produtos/" . $nome_arquivo;
 
-            if ($response->status() == '200') {
-                session()->flash('success', $response->content());
-                return redirect()->route('produtos.index');
-            } else {
-                session()->flash('error', 'Não foi possível cadastrar o produto.');
-                return redirect()->route('produtos.index');
-            }
+        $data = [
+            'nome_produto' => $this->nome_produto,
+            'id_categoria' => $this->id_categoria,
+            'valor' => $this->valor,
+            'imagem_capa' => $caminho_arquivo
+        ];
+
+        $response = $this->produto_service->save($data, $this->imagens);
+
+        if ($response->status() == '200') {
+            session()->flash('success', $response->content());
+            return redirect()->route('produtos.index');
+        } else {
+            session()->flash('error', 'Não foi possível cadastrar o produto.');
+            return redirect()->route('produtos.index');
         }
     }
 }
