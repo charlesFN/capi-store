@@ -1,0 +1,102 @@
+<div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-8">
+                @if (!$produto->imagens->isEmpty())
+                    <div class="carousel slide" data-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" class="active" data-target="#carouselIndicators" data-slide-to="0" aria-current="true"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{ url($produto->imagem_capa) }}" alt="" class="d-block w-100">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-target="carouselIndicators" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visualy-hidden">Anterior</span>
+                        </button>
+                    </div>
+                @else
+                    <div class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{{ url($produto->imagem_capa) }}" alt="" class="carousel-item active">
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+            <div class="col-4">
+                <h3>{{ $produto->nome_produto }}</h3>
+                <h2>R$ {{ number_format($produto->valor, 2, ',', '.') }}</h2>
+                <div class="row">
+                    <div class="col-12">
+                        Cor container
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        Tamanho container
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <a @if (Auth::check() == false) onclick="aviso()" href="" @else href="{{ route('carrinho.comprar', ['id_produto' => $produto->id]) }}" @endif class="btn btn-lg btn-dark w-100">Comprar</a>
+                        <button @if (Auth::check() == false) onclick="aviso()" @endif class="btn btn-lg btn-outline-dark w-100 mt-3" @if(Auth::check() == true) data-bs-toggle="modal" data-bs-target="#selecionarQuantidade" @endif>Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+
+            @if(Auth::check() == true)
+                <div class="modal fade" id="selecionarQuantidade" tabindex="-1" wire:ignore.self>
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Selecionar Quantidade</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <button @if($qtd_produto == 1) disabled @endif class="btn btn-danger rounded-circle" wire:click="rmvProduto">&minus;</button>
+                                    </div>
+                                    <div>
+                                        <span>{{ $qtd_produto }}</span>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-success rounded-circle" wire:click="addProduto">&plus;</button>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <h3>R$ {{ number_format($valor_venda, 2, ',', '.') }}</h3>
+                                </div>
+
+                                <form action="{{ route('carrinho.adicionar') }}" method="post">
+                                    @csrf
+
+                                    <input type="hidden" name="id_produto" value="{{ $produto->id }}">
+                                    <input type="hidden" name="qtd_produtos" value="{{ $qtd_produto }}">
+                                    <button @if ($qtd_produto == 0) disabled @endif type="submit" class="btn btn-lg btn-dark w-100 mt-4">Adicionar ao Carrinho</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function aviso()
+        {
+            Swal.fire({
+                title: "Atenção!",
+                text: "É necessário realizar o login para comprar ou adicionar produtos ao carrinho.",
+                icon: "warning"
+            })
+        }
+    </script>
+</div>

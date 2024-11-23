@@ -29,4 +29,9 @@ class HomeController extends Controller
             "categorias" => $categorias
         ]);
     }
+
+    public function carrinho()
+    {
+        return view('cart');
+    }
 }
