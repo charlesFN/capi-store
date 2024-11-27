@@ -13,6 +13,11 @@ class Produto extends Model
         "id_categoria",
         "nome_produto",
         "imagem_capa",
+        "informacoes_produto",
+        "cores",
+        "tamanhos",
+        "numero",
+        "numeracao",
         "valor"
     ];
 

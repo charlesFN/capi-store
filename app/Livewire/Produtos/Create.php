@@ -18,6 +18,18 @@ class Create extends Component
     public $id_categoria;
     public $valor;
     public $imagem_capa;
+    public $informacoes_produto;
+
+    public $cores = 0;
+    public $cor;
+    public $cores_disponiveis = [];
+
+    public $tamanhos = 0;
+    public $numero;
+    public $numeros = [];
+
+    public $medidas = 1;
+    public $numeracao = 0;
 
     public $imagem;
     public $imagens = [];
@@ -32,6 +44,46 @@ class Create extends Component
     public function render()
     {
         return view('livewire.produtos.create');
+    }
+
+    public function adicionarCor()
+    {
+        $this->validate([
+            'cor' => 'string'
+        ]);
+
+        $data = [
+            'cor' => $this->cor
+        ];
+
+        array_push($this->cores_disponiveis, $data);
+
+        $this->cor = null;
+    }
+
+    public function removerCor($index)
+    {
+        array_splice($this->cores_disponiveis, $index, 1);
+    }
+
+    public function adicionarNumero()
+    {
+        $this->validate([
+            'numero' => 'string'
+        ]);
+
+        $data = [
+            'numero' => $this->numero
+        ];
+
+        array_push($this->numeros, $data);
+
+        $this->numero = null;
+    }
+
+    public function removerNumero($index)
+    {
+        array_splice($this->numeros, $index, 1);
     }
 
     public function adicionarImagem()
