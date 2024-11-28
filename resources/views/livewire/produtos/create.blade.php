@@ -165,14 +165,14 @@
                                 <div class="col-6">
                                     <div class="form-row">
                                         <label for="tabelaMedidas">Tabela de medidas <span class="text-danger">*</span></label>
-                                        <input type="file" accept="image/*" name="" id="tabelaMedidas" class="form-control w-100">
+                                        <input type="file" accept="image/*" wire:model="tabela_medidas" id="tabelaMedidas" class="form-control w-100">
                                     </div>
                                 </div>
                             </div>
                         @elseif ($medidas == 2)
-                            @if (!empty($medidas_disponiveis))
+                            @if (!empty($numeros_disponiveis))
                                 <div class="mt-2">
-                                    @foreach ($medidas_disponiveis as $index => $medida)
+                                    @foreach ($numeros_disponiveis as $index => $medida)
                                         <span class="bg-light py-2 px-3 rounded border">{{ $medida['medida'] }}</span>
                                         <button type="button" wire:click="removerNumero({{ $index }})" class="btn btn-danger rounded-circle mr-2"><i class="fas fa-xmark"></i></button>
                                     @endforeach

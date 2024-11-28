@@ -29,6 +29,9 @@ class Create extends Component
     public $medidas = 1;
     public $numeracao = 0;
 
+    public $tabela_medidas;
+
+    public $numeros_disponiveis = [];
     public $medidas_disponiveis = [];
     public $numero;
 
@@ -77,14 +80,14 @@ class Create extends Component
             'medida' => $this->numero
         ];
 
-        array_push($this->medidas_disponiveis, $data);
+        array_push($this->numeros_disponiveis, $data);
 
         $this->numero = null;
     }
 
     public function removerNumero($index)
     {
-        array_splice($this->medidas_disponiveis, $index, 1);
+        array_splice($this->numeros_disponiveis, $index, 1);
     }
 
     public function adicionarImagem()
@@ -125,16 +128,25 @@ class Create extends Component
         $this->imagem_capa->storeAs('public/imagens_produtos', $nome_arquivo);
         $caminho_arquivo = "storage/imagens_produtos/" . $nome_arquivo;
 
+        if (!empty($this->tabela_medidas)) {
+            $nome_tabela = $this->tabela_medidas->getClientOriginalName();
+            $this->tabela_medidas->storeAs('public/tabelas_medidas', $nome_tabela);
+            $file_path = "storage/tabelas_medidas/" . $nome_tabela;
+        } else {
+            $file_path = null;
+        }
+
         $data = [
             'nome_produto' => $this->nome_produto,
             'id_categoria' => $this->id_categoria,
             'valor' => $this->valor,
             'imagem_capa' => $caminho_arquivo,
             'informacoes_produto' => $this->informacoes_produto,
-            'numeracao' => $this->numeracao
+            'numeracao' => $this->numeracao,
+            'tabela_medidas' => $file_path
         ];
 
-        $response = $this->produto_service->save($data, $this->cores_disponiveis, $this->medidas_disponiveis, $this->imagens);
+        $response = $this->produto_service->save($data, $this->cores_disponiveis, $this->medidas_disponiveis, $this->numeros_disponiveis, $this->imagens);
 
         if ($response->status() == '200') {
             session()->flash('success', $response->content());

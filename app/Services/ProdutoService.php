@@ -9,7 +9,7 @@ use App\Models\TamanhoProduto;
 
 class ProdutoService
 {
-    public function save(array $data, array $cores, array $medidas, array $imagens)
+    public function save(array $data, array $cores, array $medidas, array $numeros, array $imagens)
     {
         $produto = Produto::create($data);
 
@@ -26,7 +26,16 @@ class ProdutoService
             foreach ($medidas as $medida) {
                 TamanhoProduto::create([
                     'id_produto' => $produto->id,
-                    'medida' => $medida['medida']
+                    'medida' => $medida
+                ]);
+            }
+        }
+
+        if (!empty($numeros)) {
+            foreach ($numeros as $numero) {
+                TamanhoProduto::create([
+                    'id_produto' => $produto->id,
+                    'medida' => $numero['medida']
                 ]);
             }
         }

@@ -15,7 +15,8 @@ class Produto extends Model
         "imagem_capa",
         "informacoes_produto",
         "numeracao",
-        "valor"
+        "valor",
+        'tabela_medidas'
     ];
 
     public function categoria()
