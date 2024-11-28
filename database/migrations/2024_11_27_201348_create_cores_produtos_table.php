@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('produtos', function (Blueprint $table) {
-            $table->boolean('numeracao')->default(false)->after('valor');
+        Schema::create('cores_produtos', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_produto')->constrained('produtos')->cascadeOnDelete();
+            $table->string('cor');
+            $table->timestamps();
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('produtos', function (Blueprint $table) {
-            $table->dropColumn('numeracao');
-        });
+        Schema::dropIfExists('cores_produtos');
     }
 };

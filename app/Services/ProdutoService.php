@@ -2,14 +2,34 @@
 
 namespace App\Services;
 
+use App\Models\CorProduto;
 use App\Models\ImagensProduto;
 use App\Models\Produto;
+use App\Models\TamanhoProduto;
 
 class ProdutoService
 {
-    public function save(array $data, array $imagens)
+    public function save(array $data, array $cores, array $medidas, array $imagens)
     {
         $produto = Produto::create($data);
+
+        if (!empty($cores)) {
+            foreach ($cores as $cor) {
+                CorProduto::create([
+                    'id_produto' => $produto->id,
+                    'cor' => $cor['cor']
+                ]);
+            }
+        }
+
+        if (!empty($medidas)) {
+            foreach ($medidas as $medida) {
+                TamanhoProduto::create([
+                    'id_produto' => $produto->id,
+                    'medida' => $medida['medida']
+                ]);
+            }
+        }
 
         if (!empty($imagens)) {
             foreach ($imagens as $imagem) {

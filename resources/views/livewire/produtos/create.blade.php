@@ -42,7 +42,7 @@
                         @enderror
                     </div>
                     <div class="form-group col-6">
-                        <label for="valorProduto">Valor (R$) <span class="text-danger">*</span></label>
+                        <label for="valorProduto">Preço (R$) <span class="text-danger">*</span></label>
                         <input required type="number" step="0.01" wire:model.submit="valor" id="valorProduto" class="form-control" value="{{ old('valor') }}">
                         @error('valor')
                             <p class="text-danger">{{ $message }}</p>
@@ -126,39 +126,39 @@
                                 <div class="col-6">
                                     <label for="">Selecione as medidas disponíveis</label>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="medidas[]" value="PP">
+                                        <input type="checkbox" class="form-check-input" wire:model="medidas_disponiveis" value="PP">
                                         <label for="" class="form-check-label">PP</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="medidas[]" value="P">
+                                        <input type="checkbox" class="form-check-input" wire:model="medidas_disponiveis" value="P">
                                         <label for="" class="form-check-label">P</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="medidas[]" value="M">
+                                        <input type="checkbox" class="form-check-input" wire:model="medidas_disponiveis" value="M">
                                         <label for="" class="form-check-label">M</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="medidas[]" value="G">
+                                        <input type="checkbox" class="form-check-input" wire:model="medidas_disponiveis" value="G">
                                         <label for="" class="form-check-label">G</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="medidas[]" value="GG">
+                                        <input type="checkbox" class="form-check-input" wire:model="medidas_disponiveis" value="GG">
                                         <label for="" class="form-check-label">GG</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="medidas[]" value="XG">
+                                        <input type="checkbox" class="form-check-input" wire:model="medidas_disponiveis" value="XG">
                                         <label for="" class="form-check-label">XG</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="medidas[]" value="XGG">
+                                        <input type="checkbox" class="form-check-input" wire:model="medidas_disponiveis" value="XGG">
                                         <label for="" class="form-check-label">XGG</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="medidas[]" value="EX">
+                                        <input type="checkbox" class="form-check-input" wire:model="medidas_disponiveis" value="EX">
                                         <label for="" class="form-check-label">EX</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" name="medidas[]" value="EGG">
+                                        <input type="checkbox" class="form-check-input" wire:model="medidas_disponiveis" value="EGG">
                                         <label for="" class="form-check-label">EGG</label>
                                     </div>
                                 </div>
@@ -170,10 +170,10 @@
                                 </div>
                             </div>
                         @elseif ($medidas == 2)
-                            @if (!empty($numeros))
+                            @if (!empty($medidas_disponiveis))
                                 <div class="mt-2">
-                                    @foreach ($numeros as $index => $numero)
-                                        <span class="bg-light py-2 px-3 rounded border">{{ $numero['numero'] }}</span>
+                                    @foreach ($medidas_disponiveis as $index => $medida)
+                                        <span class="bg-light py-2 px-3 rounded border">{{ $medida['medida'] }}</span>
                                         <button type="button" wire:click="removerNumero({{ $index }})" class="btn btn-danger rounded-circle mr-2"><i class="fas fa-xmark"></i></button>
                                     @endforeach
                                 </div>
@@ -215,6 +215,9 @@
                         </div>
                     @endforeach
                 @endif
+
+                <h4>Imagens do Produto</h4>
+
                 <div class="form-row">
                     <div class="form-group col-12 d-flex justify-content-center">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#adicionarImagem"><i class="fas fa-plus mr-2"></i><span>Adicionar Imagem</span></button>

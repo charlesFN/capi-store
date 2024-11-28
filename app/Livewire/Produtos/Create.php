@@ -21,15 +21,16 @@ class Create extends Component
     public $informacoes_produto;
 
     public $cores = 0;
+
     public $cor;
     public $cores_disponiveis = [];
 
     public $tamanhos = 0;
-    public $numero;
-    public $numeros = [];
-
     public $medidas = 1;
     public $numeracao = 0;
+
+    public $medidas_disponiveis = [];
+    public $numero;
 
     public $imagem;
     public $imagens = [];
@@ -73,17 +74,17 @@ class Create extends Component
         ]);
 
         $data = [
-            'numero' => $this->numero
+            'medida' => $this->numero
         ];
 
-        array_push($this->numeros, $data);
+        array_push($this->medidas_disponiveis, $data);
 
         $this->numero = null;
     }
 
     public function removerNumero($index)
     {
-        array_splice($this->numeros, $index, 1);
+        array_splice($this->medidas_disponiveis, $index, 1);
     }
 
     public function adicionarImagem()
@@ -128,10 +129,12 @@ class Create extends Component
             'nome_produto' => $this->nome_produto,
             'id_categoria' => $this->id_categoria,
             'valor' => $this->valor,
-            'imagem_capa' => $caminho_arquivo
+            'imagem_capa' => $caminho_arquivo,
+            'informacoes_produto' => $this->informacoes_produto,
+            'numeracao' => $this->numeracao
         ];
 
-        $response = $this->produto_service->save($data, $this->imagens);
+        $response = $this->produto_service->save($data, $this->cores_disponiveis, $this->medidas_disponiveis, $this->imagens);
 
         if ($response->status() == '200') {
             session()->flash('success', $response->content());

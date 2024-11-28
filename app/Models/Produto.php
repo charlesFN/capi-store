@@ -14,9 +14,6 @@ class Produto extends Model
         "nome_produto",
         "imagem_capa",
         "informacoes_produto",
-        "cores",
-        "tamanhos",
-        "numero",
         "numeracao",
         "valor"
     ];
