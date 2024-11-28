@@ -15,4 +15,9 @@ class TamanhoProduto extends Model
         'id_produto',
         'medida'
     ];
+
+    public function produto()
+    {
+        return $this->belongsTo(Produto::class, 'id_produto');
+    }
 }

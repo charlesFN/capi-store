@@ -29,7 +29,7 @@
         <div class="container">
             <div>
                 @foreach ($categorias as $categoria)
-                    <a href="" class="text-decoration-none text-light">{{ $categoria->nome_categoria }}</a>
+                    <a href="" class="text-decoration-none text-light mx-2">{{ $categoria->nome_categoria }}</a>
                 @endforeach
             </div>
             @if($numero_categorias > 5)

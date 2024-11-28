@@ -15,4 +15,9 @@ class CorProduto extends Model
         'id_produto',
         'cor'
     ];
+
+    public function produto()
+    {
+        return $this->belongsTo(Produto::class, 'id_produto');
+    }
 }

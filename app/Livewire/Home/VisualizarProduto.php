@@ -12,6 +12,9 @@ class VisualizarProduto extends Component
     public $valor_produto;
     public $valor_venda;
 
+    public $cor;
+    public $medida;
+
     public function addProduto()
     {
         $this->qtd_produto++;

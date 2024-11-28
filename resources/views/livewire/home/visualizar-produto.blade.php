@@ -21,7 +21,7 @@
                     <div class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="{{ url($produto->imagem_capa) }}" alt="" class="carousel-item active">
+                                <img src="{{ url($produto->imagem_capa) }}" alt="" class="carousel-item active object-fit-contain" style="height: 50vh">
                             </div>
                         </div>
                     </div>
@@ -29,24 +29,55 @@
             </div>
             <div class="col-4">
                 <h3>{{ $produto->nome_produto }}</h3>
-                <h2>R$ {{ number_format($produto->valor, 2, ',', '.') }}</h2>
-                <div class="row">
-                    <div class="col-12">
-                        Cor container
+                <h2 class="mt-1">R$ {{ number_format($produto->valor, 2, ',', '.') }}</h2>
+                @if (!empty($produto->cores))
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <span><b>Cor do produto:</b></span><br>
+                            @foreach ($produto->cores as $index => $cor)
+                                <input type="radio" class="btn-check" id="btn-check-{{ $index }}" name="cor" wire:model.live="cor" value="{{ $cor['cor'] }}">
+                                <label class="btn btn-outline-dark" for="btn-check-{{ $index }}">{{ $cor['cor'] }}</label>
+                            @endforeach
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        Tamanho container
+                @endif
+                @if (!empty($produto->tamanhos))
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <span><b>Tamamho do produto:</b></span><br>
+                            @foreach ($produto->tamanhos as $index => $medida)
+                                <input type="radio" class="btn-check" id="btn-medida-check-{{ $index }}" name="medida" wire:model.live="medida" value="{{ $medida['medida'] }}">
+                                <label class="btn btn-outline-dark" for="btn-medida-check-{{ $index }}">{{ $medida['medida'] }}</label>
+                            @endforeach
+                            <br>
+                            @if (!empty($produto->tabela_medidas))
+                                <button class="btn mt-1" data-bs-toggle="modal" data-bs-target="#tabelaMedidas">Visualizar tabela de medidas</button>
+                            @endif
+                        </div>
                     </div>
-                </div>
-                <div class="row">
+                @endif
+                <div class="row mt-5">
                     <div class="col-12">
                         <a @if (Auth::check() == false) onclick="aviso()" href="" @else href="{{ route('carrinho.comprar', ['id_produto' => $produto->id]) }}" @endif class="btn btn-lg btn-dark w-100">Comprar</a>
                         <button @if (Auth::check() == false) onclick="aviso()" @endif class="btn btn-lg btn-outline-dark w-100 mt-3" @if(Auth::check() == true) data-bs-toggle="modal" data-bs-target="#selecionarQuantidade" @endif>Adicionar ao Carrinho</button>
                     </div>
                 </div>
             </div>
+
+            @if(!empty($produto->tabela_medidas))
+                <div class="modal fade" id="tabelaMedidas">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <img src="{{ url($produto->tabela_medidas) }}" alt="" class="img-fluid">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             @if(Auth::check() == true)
                 <div class="modal fade" id="selecionarQuantidade" tabindex="-1" wire:ignore.self>
@@ -85,6 +116,14 @@
                 </div>
             @endif
         </div>
+        @if($produto->informacoes_produto)
+            <div class="row mt-5">
+                <h4>Descrição do produto</h4>
+                <p>
+                    {{ $produto->informacoes_produto }}
+                </p>
+            </div>
+        @endif
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

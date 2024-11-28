@@ -28,4 +28,14 @@ class Produto extends Model
     {
         return $this->hasMany(ImagensProduto::class, 'id_produto');
     }
+
+    public function cores()
+    {
+        return $this->hasMany(CorProduto::class, 'id_produto');
+    }
+
+    public function tamanhos()
+    {
+        return $this->hasMany(TamanhoProduto::class, 'id_produto');
+    }
 }
