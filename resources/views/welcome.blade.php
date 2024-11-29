@@ -32,7 +32,7 @@
                         <div class="card card-produtos" style="background-color: #F3F4F6">
                             <img src="{{ url($produto->imagem_capa) }}" alt="" class="card-img-top object-fit-contain" style="max-height: 190px">
                             <div class="card-body">
-                                <p class="card-text" style="color: #1E3ABA">{{ $produto->nome_produto }}</p>
+                                <p class="card-text fw-bold" style="color: #1E3A8A">{{ $produto->nome_produto }}</p>
                                 <h4 class="card-title" style="color: #F59E0B">R$ {{ number_format($produto->valor, 2, ',', '.') }}</h4>
                             </div>
                         </div>

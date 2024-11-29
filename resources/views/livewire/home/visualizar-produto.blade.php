@@ -29,14 +29,14 @@
             </div>
             <div class="col-4">
                 <h3>{{ $produto->nome_produto }}</h3>
-                <h2 class="mt-1">R$ {{ number_format($produto->valor, 2, ',', '.') }}</h2>
+                <h2 class="mt-1" style="color: #1E3A8A">R$ {{ number_format($produto->valor, 2, ',', '.') }}</h2>
                 @if (!empty($produto->cores))
                     <div class="row mt-5">
                         <div class="col-12">
                             <span><b>Cor do produto:</b></span><br>
                             @foreach ($produto->cores as $index => $cor)
                                 <input type="radio" class="btn-check" id="btn-check-{{ $index }}" name="cor" wire:model.live="cor" value="{{ $cor['cor'] }}">
-                                <label class="btn btn-outline-dark" for="btn-check-{{ $index }}">{{ $cor['cor'] }}</label>
+                                <label class="btn btn-outline-primary" for="btn-check-{{ $index }}">{{ $cor['cor'] }}</label>
                             @endforeach
                         </div>
                     </div>
@@ -44,10 +44,10 @@
                 @if (!empty($produto->tamanhos))
                     <div class="row mt-4">
                         <div class="col-12">
-                            <span><b>Tamamho do produto:</b></span><br>
+                            <span><b>Tamanho do produto:</b></span><br>
                             @foreach ($produto->tamanhos as $index => $medida)
                                 <input type="radio" class="btn-check" id="btn-medida-check-{{ $index }}" name="medida" wire:model.live="medida" value="{{ $medida['medida'] }}">
-                                <label class="btn btn-outline-dark" for="btn-medida-check-{{ $index }}">{{ $medida['medida'] }}</label>
+                                <label class="btn btn-outline-primary" for="btn-medida-check-{{ $index }}">{{ $medida['medida'] }}</label>
                             @endforeach
                             <br>
                             @if (!empty($produto->tabela_medidas))
@@ -58,8 +58,8 @@
                 @endif
                 <div class="row mt-5">
                     <div class="col-12">
-                        <a @if (Auth::check() == false) onclick="aviso()" href="" @else href="{{ route('carrinho.comprar', ['id_produto' => $produto->id]) }}" @endif class="btn btn-lg btn-dark w-100">Comprar</a>
-                        <button @if (Auth::check() == false) onclick="aviso()" @endif class="btn btn-lg btn-outline-dark w-100 mt-3" @if(Auth::check() == true) data-bs-toggle="modal" data-bs-target="#selecionarQuantidade" @endif>Adicionar ao Carrinho</button>
+                        <button @if (Auth::check() == false) onclick="aviso()" @else href="{{ route('carrinho.comprar', ['id_produto' => $produto->id]) }}" @endif class="btn btn-lg btn-primary w-100">Comprar</button>
+                        <button @if (Auth::check() == false) onclick="aviso()" @endif class="btn btn-lg btn-outline-primary w-100 mt-3" @if(Auth::check() == true) data-bs-toggle="modal" data-bs-target="#selecionarQuantidade" @endif>Adicionar ao Carrinho</button>
                     </div>
                 </div>
             </div>

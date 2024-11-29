@@ -1,4 +1,4 @@
-<div class="mt-4 py-5" style="background-color: #1E3ABA">
+<div class="mt-4 py-5" style="background-color: #1E3A8A">
     <div class="container">
         <div class="row">
             <div class="col-3">
