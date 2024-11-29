@@ -27,14 +27,16 @@
 @if ($numero_categorias > 0)
     <nav class="navbar" style="background-color: #F3F4F6">
         <div class="container">
-            <div>
-                @foreach ($categorias as $categoria)
-                    <a href="" class="text-decoration-none mx-2 fw-bold" style="color: #1E3A8A">{{ $categoria->nome_categoria }}</a>
-                @endforeach
+            <div class="row">
+                <div>
+                    @foreach ($categorias as $categoria)
+                        <a href="" class="text-decoration-none mx-5 fw-bold" style="color: #1E3A8A">{{ $categoria->nome_categoria }}</a>
+                    @endforeach
+                </div>
+                @if($numero_categorias > 5)
+                    <a href="#" class="text-decoration-none mx-5 fw-bold" style="color: #1E3A8A">Mais categorias...</a>
+                @endif
             </div>
-            @if($numero_categorias > 5)
-                <a href="#" class="text-decoration-none fw-bold" style="color: #1E3A8A">Mais categorias...</a>
-            @endif
         </div>
     </nav>
 @endif

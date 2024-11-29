@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-3">
-                <img src="{{ asset('img/logo-site.png') }}" alt="" class="object-fit-contain" style="max-width: 100%">
+                <img src="{{ asset('img/logo-site.png') }}" alt="" class="object-fit-contain" style="max-width: 70%">
             </div>
             <div class="col-3">
                 <h4 style="color: #fff">Contate-nos</h4>
@@ -12,6 +12,13 @@
             </div>
             <div class="col-3">
                 <h4 style="color: #fff">Institucional</h4>
+                <ul style="list-style-type: none; margin-left: 0; padding-left: 0; color: #fff">
+                    <li class="mt-4 mb-2">Sobre</li>
+                    <li>Modalidades</li>
+                    <li class="my-2">Mídia</li>
+                    <li>Área dos Calouros</li>
+                    <li class="my-2">Contato</li>
+                </ul>
             </div>
         </div>
         <hr>
