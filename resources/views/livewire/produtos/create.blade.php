@@ -206,18 +206,18 @@
                 </div>
                 <hr>
 
+                <h4>Imagens do Produto</h4>
+
                 @if(!empty($imagens))
-                    @foreach ($imagens as $index => $imagem)
-                        <div class="form-row">
-                            <div class="col-4 mb-2" style="position: relative; height: 200px;">
-                                <img src="{{ url($imagem['caminho_arquivo']) }}" class="w-100">
+                    <div class="form-row">
+                        @foreach ($imagens as $index => $imagem)
+                            <div class="col-4 mb-2" style="position: relative; height: 400px;">
+                                <img src="{{ url($imagem['caminho_arquivo']) }}" class="h-100">
                                 <button type="button" wire:click="removerImagem({{ $index }})" class="btn btn-danger btn-flutuante rounded-circle"><i class="fas fa-xmark"></i></button>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 @endif
-
-                <h4>Imagens do Produto</h4>
 
                 <div class="form-row">
                     <div class="form-group col-12 d-flex justify-content-center">
