@@ -28,6 +28,10 @@ class ProdutoService
                     'id_produto' => $produto->id,
                     'medida' => $medida
                 ]);
+
+                $produto->update([
+                    "tipo_tamanho" => 1
+                ]);
             }
         }
 
@@ -36,6 +40,10 @@ class ProdutoService
                 TamanhoProduto::create([
                     'id_produto' => $produto->id,
                     'medida' => $numero['medida']
+                ]);
+
+                $produto->update([
+                    "tipo_tamanho" => 2
                 ]);
             }
         }

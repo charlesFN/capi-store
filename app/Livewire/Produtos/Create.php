@@ -53,7 +53,7 @@ class Create extends Component
     public function adicionarCor()
     {
         $this->validate([
-            'cor' => 'string'
+            'cor' => 'required'
         ]);
 
         $data = [
@@ -73,7 +73,7 @@ class Create extends Component
     public function adicionarNumero()
     {
         $this->validate([
-            'numero' => 'string'
+            'numero' => 'required'
         ]);
 
         $data = [
@@ -93,7 +93,7 @@ class Create extends Component
     public function adicionarImagem()
     {
         $this->validate([
-            'imagem' => ['file', File::types(['png', 'jpg', 'jpeg', 'jpe', 'webp'])]
+            'imagem' => ['required', 'file', File::types(['png', 'jpg', 'jpeg', 'jpe', 'webp'])]
         ]);
 
         $nome_arquivo = $this->imagem->getClientOriginalName();
@@ -101,7 +101,6 @@ class Create extends Component
         $caminho_arquivo = "storage/imagens_produtos/" . $nome_arquivo;
 
         $data = [
-            'nome_arquivo' => $nome_arquivo,
             'caminho_arquivo' => $caminho_arquivo
         ];
 
