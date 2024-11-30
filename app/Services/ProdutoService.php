@@ -65,14 +65,22 @@ class ProdutoService
         /* dd($data); */
         /* dd($cores); */
 
-        foreach ($cores as $cor) {
-            if ($cor['salvar'] == "sim") {
-                CorProduto::create([
-                    'id_produto' => $produto->id,
-                    'cor' => $cor['cor']
-                ]);
-            } elseif ($cor['salvar'] == "nao") {
-                CorProduto::destroy($cor['id']);
+        if (!empty($cores)) {
+            foreach ($cores as $cor) {
+                if ($cor['salvar'] == "sim") {
+                    CorProduto::create([
+                        'id_produto' => $produto->id,
+                        'cor' => $cor['cor']
+                    ]);
+                } elseif ($cor['salvar'] == "nao") {
+                    CorProduto::destroy($cor['id']);
+                }
+            }
+        } else {
+            $qtd_cores = count($produto->cores);
+
+            if ($qtd_cores != 0) {
+                $produto->cores()->delete();
             }
         }
 

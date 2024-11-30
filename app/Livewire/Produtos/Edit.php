@@ -250,6 +250,10 @@ class Edit extends Component
             ];
         }
 
+        if ($this->cores == 0) {
+            $this->cores_disponiveis = null;
+        }
+
         $response = $this->produto_service->update($data, $this->cores_disponiveis, $this->produto);
     }
 
