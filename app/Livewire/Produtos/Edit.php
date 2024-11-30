@@ -37,6 +37,9 @@ class Edit extends Component
     public $medidas_disponiveis = [];
 
 
+    public $tabela_medidas;
+    public $nova_tabela_medidas = null;
+
 
     public $numero;
     public $numeros_disponiveis = [];
@@ -64,6 +67,7 @@ class Edit extends Component
         $this->valor = $this->produto->valor;
         $this->id_categoria = $this->produto->id_categoria;
         $this->imagem_capa = $this->produto->imagem_capa;
+        $this->tabela_medidas = $this->produto->tabela_medidas;
 
         if (!empty($this->produto->informacoes_produto)) {
             $this->informacoes_produto = $this->produto->informacoes_produto;
@@ -102,9 +106,7 @@ class Edit extends Component
 
                 foreach ($this->produto->tamanhos as $tamanho) {
                     $data = [
-                        "id" => $tamanho->id,
-                        "medida" => $tamanho->medida,
-                        "salvar" => null
+                        "medida" => $tamanho->medida
                     ];
 
                     array_push($this->numeros_disponiveis, $data);
@@ -167,9 +169,7 @@ class Edit extends Component
         ]);
 
         $data = [
-            'id' => 0,
             'medida' => $this->numero,
-            'salvar' => true
         ];
 
         array_push($this->numeros_disponiveis, $data);
@@ -177,13 +177,9 @@ class Edit extends Component
         $this->numero = null;
     }
 
-    public function removerNumero($index, $id_numero)
+    public function removerNumero($index)
     {
-        if ($id_numero != 0) {
-            $this->numeros_disponiveis[$index]['salvar'] = false;
-        } else {
-            array_splice($this->numeros_disponiveis, $index, 1);
-        }
+        array_splice($this->numeros_disponiveis, $index, 1);
     }
 
     public function adicionarImagem()
@@ -230,7 +226,8 @@ class Edit extends Component
                 'id_categoria' => $this->id_categoria,
                 'valor' => $this->valor,
                 'imagem_capa' => $this->imagem_capa,
-                'informacoes_produto' => $this->informacoes_produto
+                'informacoes_produto' => $this->informacoes_produto,
+                'tabela_medidas' => null
             ];
         } else {
             $this->validate([
@@ -246,7 +243,8 @@ class Edit extends Component
                 'id_categoria' => $this->id_categoria,
                 'valor' => $this->valor,
                 'imagem_capa' => $caminho_arquivo,
-                'informacoes_produto' => $this->informacoes_produto
+                'informacoes_produto' => $this->informacoes_produto,
+                'tabela_medidas' => null
             ];
         }
 
@@ -254,7 +252,36 @@ class Edit extends Component
             $this->cores_disponiveis = null;
         }
 
-        $response = $this->produto_service->update($data, $this->cores_disponiveis, $this->produto);
+        if ($this->tamanhos == 1) {
+            if ($this->medidas == 1) {
+                $this->numeros_disponiveis = null;
+
+                if ($this->nova_tabela_medidas == null) {
+                    $data = [
+                        'tabela_medidas' => $this->tabela_medidas
+                    ];
+                } else {
+                    $this->validate([
+                        'nova_tabela_medidas' => ['file', File::types(['png', 'jpg', 'jpeg', 'jpe', 'webp'])]
+                    ]);
+
+                    $nome_arquivo = $this->nova_tabela_medidas->getClientOriginalName();
+                    $this->nova_tabela_medidas->storeAs('public/imagens_produtos', $nome_arquivo);
+                    $caminho_arquivo = "storage/imagens_produtos/" . $nome_arquivo;
+
+                    $data = [
+                        'tabela_medidas' => $caminho_arquivo
+                    ];
+                }
+            } elseif ($this->medidas == 2) {
+                $this->medidas_disponiveis = null;
+            }
+        } elseif ($this->tamanhos == 0) {
+            $this->medidas_disponiveis = null;
+            $this->numeros_disponiveis = null;
+        }
+
+        $response = $this->produto_service->update($data, $this->cores_disponiveis, $this->medidas_disponiveis, $this->numeros_disponiveis, $this->produto);
     }
 
     public function render()

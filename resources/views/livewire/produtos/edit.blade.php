@@ -171,12 +171,15 @@
                                 <div class="col-6">
                                     <div class="form-row">
                                         <label for="">Tabela de medidas atual</label>
-                                        @if (!empty($produto->tabela_medidas))
-                                            <img src="{{ url($produto->tabela_medidas) }}" alt="" class="w-100">
+                                        @if (!empty($tabela_medidas))
+                                            <img src="{{ url($tabela_medidas) }}" alt="" class="w-100">
                                         @endif
 
                                         <label for="tabelaMedidas" class="mt-2">Nova tabela de medidas</label>
-                                        <input type="file" accept="image/*" wire:model="tabela_medidas" id="tabelaMedidas" class="form-control w-100">
+                                        <input type="file" accept="image/*" wire:model="nova_tabela_medidas" id="tabelaMedidas" class="form-control w-100">
+                                        @error('nova_tabela_medidas')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
                             </div>
@@ -184,10 +187,8 @@
                             @if (!empty($numeros_disponiveis))
                                 <div class="mt-2">
                                     @foreach ($numeros_disponiveis as $index => $medida)
-                                        @if ($medida['salvar'] == null || $medida['salvar'] == true)
-                                            <span class="bg-light py-2 px-3 rounded border">{{ $medida['medida'] }}</span>
-                                            <button type="button" wire:click="removerNumero({{ $index }}, {{ $medida['id'] }})" class="btn btn-danger rounded-circle mr-2"><i class="fas fa-xmark"></i></button>
-                                        @endif
+                                        <span class="bg-light py-2 px-3 rounded border">{{ $medida['medida'] }}</span>
+                                        <button type="button" wire:click="removerNumero({{ $index }})" class="btn btn-danger rounded-circle mr-2"><i class="fas fa-xmark"></i></button>
                                     @endforeach
                                 </div>
                             @endif
