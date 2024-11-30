@@ -30,7 +30,10 @@
             <div class="col-4">
                 <h3>{{ $produto->nome_produto }}</h3>
                 <h2 class="mt-1" style="color: #1E3A8A">R$ {{ number_format($produto->valor, 2, ',', '.') }}</h2>
-                @if (!empty($produto->cores))
+                @php
+                    $qtd_cores = count($produto->cores)
+                @endphp
+                @if (!empty($qtd_cores))
                     <div class="row mt-5">
                         <div class="col-12">
                             <span><b>Cor do produto:</b></span><br>
@@ -41,7 +44,10 @@
                         </div>
                     </div>
                 @endif
-                @if (!empty($produto->tamanhos))
+                @php
+                    $qtd_produtos = count($produto->tamanhos)
+                @endphp
+                @if (!empty($qtd_produtos))
                     <div class="row mt-4">
                         <div class="col-12">
                             <span><b>Tamanho do produto:</b></span><br>
