@@ -60,9 +60,23 @@ class ProdutoService
         return response("Produto adicionado com sucesso!", 200);
     }
 
-    public function update(array $data, Produto $produto)
+    public function update(array $data, $cores, Produto $produto)
     {
-        $produto->update($data);
+        /* dd($data); */
+        /* dd($cores); */
+
+        foreach ($cores as $cor) {
+            if ($cor['salvar'] == "sim") {
+                CorProduto::create([
+                    'id_produto' => $produto->id,
+                    'cor' => $cor['cor']
+                ]);
+            } elseif ($cor['salvar'] == "nao") {
+                CorProduto::destroy($cor['id']);
+            }
+        }
+
+        /* $produto->update($data); */
 
         return response("Produto atualizado com sucesso!", 200);
     }

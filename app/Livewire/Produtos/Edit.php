@@ -3,8 +3,9 @@
 namespace App\Livewire\Produtos;
 
 use Livewire\Component;
-use Illuminate\Validation\Rules\File;
 use Livewire\WithFileUploads;
+use App\Services\ProdutoService;
+use Illuminate\Validation\Rules\File;
 
 class Edit extends Component
 {
@@ -19,10 +20,11 @@ class Edit extends Component
     public $valor;
 
 
-    public $nova_imagem_capa;
+    public $imagem_capa;
+    public $nova_imagem_capa = null;
 
 
-    public $informacoes_produto;
+    public $informacoes_produto = null;
 
 
     public $cores;
@@ -48,8 +50,25 @@ class Edit extends Component
     public $imagens = [];
 
 
+
+    protected $produto_service;
+
+    public function boot(ProdutoService $produtoService)
+    {
+        $this->produto_service = $produtoService;
+    }
+
     public function mount()
     {
+        $this->nome_produto = $this->produto->nome_produto;
+        $this->valor = $this->produto->valor;
+        $this->id_categoria = $this->produto->id_categoria;
+        $this->imagem_capa = $this->produto->imagem_capa;
+
+        if (!empty($this->produto->informacoes_produto)) {
+            $this->informacoes_produto = $this->produto->informacoes_produto;
+        }
+
         $qtd_cores = count($this->produto->cores);
         if ($qtd_cores > 0) {
             $this->cores = 1;
@@ -107,7 +126,7 @@ class Edit extends Component
                 $data = [
                     'id' => $imagem->id,
                     'caminho_arquivo' => $imagem->url_imagem,
-                    "salvar" => null
+                    "salvar" => "null"
                 ];
 
                 array_push($this->imagens, $data);
@@ -124,7 +143,7 @@ class Edit extends Component
         $data = [
             'id' => 0,
             'cor' => $this->cor,
-            'salvar' => true
+            'salvar' => "sim"
         ];
 
         array_push($this->cores_disponiveis, $data);
@@ -135,7 +154,7 @@ class Edit extends Component
     public function removerCor($index, $id_cor)
     {
         if ($id_cor != 0) {
-            $this->cores_disponiveis[$index]['salvar'] = false;
+            $this->cores_disponiveis[$index]['salvar'] = "nao";
         } else {
             array_splice($this->cores_disponiveis, $index, 1);
         }
@@ -195,6 +214,43 @@ class Edit extends Component
         } else {
             array_splice($this->imagens, $index, 1);
         }
+    }
+
+    public function save()
+    {
+        $this->validate([
+            'nome_produto' => "required|string|max:50",
+            'id_categoria' => 'required|exists:categorias,id',
+            'valor' => 'required|numeric'
+        ]);
+
+        if ($this->nova_imagem_capa == null) {
+            $data = [
+                'nome_produto' => $this->nome_produto,
+                'id_categoria' => $this->id_categoria,
+                'valor' => $this->valor,
+                'imagem_capa' => $this->imagem_capa,
+                'informacoes_produto' => $this->informacoes_produto
+            ];
+        } else {
+            $this->validate([
+                'nova_imagem_capa' => ['file', File::types(['png', 'jpg', 'jpeg', 'jpe', 'webp'])]
+            ]);
+
+            $nome_arquivo = $this->nova_imagem_capa->getClientOriginalName();
+            $this->nova_imagem_capa->storeAs('public/imagens_produtos', $nome_arquivo);
+            $caminho_arquivo = "storage/imagens_produtos/" . $nome_arquivo;
+
+            $data = [
+                'nome_produto' => $this->nome_produto,
+                'id_categoria' => $this->id_categoria,
+                'valor' => $this->valor,
+                'imagem_capa' => $caminho_arquivo,
+                'informacoes_produto' => $this->informacoes_produto
+            ];
+        }
+
+        $response = $this->produto_service->update($data, $this->cores_disponiveis, $this->produto);
     }
 
     public function render()

@@ -7,11 +7,11 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="">
+            <form wire:submit="save">
                 <div class="form-row">
                     <div class="form-group col-4">
                         <label for="nomeProduto">Produto</label>
-                        <input required type="text" id="nomeProduto" class="form-control" wire:model.submit="nome_produto" value="{{ $produto->nome_produto }}">
+                        <input required type="text" id="nomeProduto" class="form-control" wire:model.submit="nome_produto">
                         @error('nome_produto')
                             <p class="text-danger">{{ $message }}</p>
                         @enderror
@@ -21,7 +21,7 @@
                         <select id="nomeCategoria" class="form-control">
                             <option value="{{ null }}">Selecione uma categoria</option>
                             @forelse ($categorias as $categoria)
-                                <option @if ($categoria->id == $produto->id_categoria) wire:model.submit="id_categoria" selected @endif value="{{ $categoria->id }}">{{ $categoria->nome_categoria }}</option>
+                                <option @if ($categoria->id == $produto->id_categoria) selected @endif wire:model.submit="id_categoria" value="{{ $categoria->id }}">{{ $categoria->nome_categoria }}</option>
                             @empty
                                 <option value="{{ null }}">Não há categorias cadastradas</option>
                             @endforelse
@@ -43,6 +43,7 @@
                         <label for="">Imagem de capa atual</label>
                         <div class="row">
                             <img src="{{ url($produto->imagem_capa) }}" style="max-width: 100%" />
+                            <input type="hidden" wire:model.submit="imagem_capa">
                         </div>
                     </div>
                     <div class="form-group col-6">
@@ -53,21 +54,12 @@
                         @enderror
                     </div>
                 </div>
-                @if (!empty($produto->informacoes_produto))
-                    <div class="form-row">
-                        <div class="form-group col-12">
-                            <label for="informacoesProduto">Informações do produto</label>
-                            <textarea wire:model.submit="informacoes_produto" id="informacoesProduto" cols="30" rows="10" class="form-control">{{ $produto->informacoes_produto }}</textarea>
-                        </div>
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        <label for="informacoesProduto">Informações do produto</label>
+                        <textarea wire:model.submit="informacoes_produto" id="informacoesProduto" cols="30" rows="10" class="form-control">{{ $produto->informacoes_produto }}</textarea>
                     </div>
-                @else
-                    <div class="form-row">
-                        <div class="form-group col-12">
-                            <label for="informacoesProduto">Informações do produto</label>
-                            <textarea wire:model.submit="informacoes_produto" id="informacoesProduto" cols="30" rows="10" class="form-control"></textarea>
-                        </div>
-                    </div>
-                @endif
+                </div>
 
                 <h4>Personalizações do Produto</h4>
 
@@ -90,7 +82,7 @@
                     @if (!empty($cores_disponiveis))
                         <div class="mt-2">
                             @foreach ($cores_disponiveis as $index => $cor)
-                                @if ($cor['salvar'] == null || $cor['salvar'] == true)
+                                @if ($cor['salvar'] != "nao")
                                     <span class="bg-light py-2 px-3 rounded border">{{ $cor['cor'] }}</span>
                                     <button type="button" wire:click="removerCor({{ $index }}, {{ $cor['id'] }})" class="btn btn-danger rounded-circle mr-2"><i class="fas fa-xmark"></i></button>
                                 @endif
@@ -248,7 +240,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-12 d-flex justify-content-end">
-                        <input type="submit" value="Salvar" class="btn btn-success">
+                        <input type="submit" value="Atualizar" class="btn btn-success">
                     </div>
                 </div>
             </form>
