@@ -18,10 +18,10 @@
                     </div>
                     <div class="form-group col-4">
                         <label for="nomeCategoria">Categoria</label>
-                        <select id="nomeCategoria" class="form-control">
+                        <select id="nomeCategoria" class="form-control" wire:model.live="id_categoria">
                             <option value="{{ null }}">Selecione uma categoria</option>
                             @forelse ($categorias as $categoria)
-                                <option @if ($categoria->id == $produto->id_categoria) selected @endif wire:model.submit="id_categoria" value="{{ $categoria->id }}">{{ $categoria->nome_categoria }}</option>
+                                <option @if ($categoria->id == $produto->id_categoria) selected @endif value="{{ $categoria->id }}">{{ $categoria->nome_categoria }}</option>
                             @empty
                                 <option value="{{ null }}">Não há categorias cadastradas</option>
                             @endforelse
@@ -170,8 +170,8 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-row">
-                                        <label for="">Tabela de medidas atual</label>
                                         @if (!empty($tabela_medidas))
+                                            <label for="">Tabela de medidas atual</label>
                                             <img src="{{ url($tabela_medidas) }}" alt="" class="w-100">
                                         @endif
 
@@ -225,10 +225,12 @@
                     <div class="form-row">
                         @foreach ($imagens as $index => $imagem)
                             @if ($imagem['salvar'] == null || $imagem['salvar'] == true)
-                                <div class="col-4 mb-2" style="position: relative; height: 400px;">
-                                    <img src="{{ url($imagem['caminho_arquivo']) }}" class="h-100">
-                                    <button type="button" wire:click="removerImagem({{ $index }}, {{ $imagem['id'] }})" class="btn btn-danger btn-flutuante rounded-circle"><i class="fas fa-xmark"></i></button>
-                                </div>
+                                @if ($imagem['salvar'] != 'nao')
+                                    <div class="col-4 mb-2" style="position: relative; height: 400px;">
+                                        <img src="{{ url($imagem['caminho_arquivo']) }}" class="h-100">
+                                        <button type="button" wire:click="removerImagem({{ $index }}, {{ $imagem['id'] }})" class="btn btn-danger btn-flutuante rounded-circle"><i class="fas fa-xmark"></i></button>
+                                    </div>
+                                @endif
                             @endif
                         @endforeach
                     </div>

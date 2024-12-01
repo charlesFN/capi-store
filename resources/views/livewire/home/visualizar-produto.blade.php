@@ -9,8 +9,13 @@
                         </div>
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="{{ url($produto->imagem_capa) }}" alt="" class="d-block w-100">
+                                <img src="{{ url($produto->imagem_capa) }}" alt="" class="d-block" style="height: 50vh">
                             </div>
+                            @foreach ($produto->imagens as $imagem)
+                                <div class="carousel-item">
+                                    <img src="{{ url($imagem->url_imagem) }}" alt="" class="d-block" style="height: 50vh">
+                                </div>
+                            @endforeach
                         </div>
                         <button class="carousel-control-prev" type="button" data-target="carouselIndicators" data-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

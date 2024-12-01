@@ -68,6 +68,7 @@ class Edit extends Component
         $this->id_categoria = $this->produto->id_categoria;
         $this->imagem_capa = $this->produto->imagem_capa;
         $this->tabela_medidas = $this->produto->tabela_medidas;
+        $this->numeracao = $this->produto->numeracao;
 
         if (!empty($this->produto->informacoes_produto)) {
             $this->informacoes_produto = $this->produto->informacoes_produto;
@@ -128,7 +129,7 @@ class Edit extends Component
                 $data = [
                     'id' => $imagem->id,
                     'caminho_arquivo' => $imagem->url_imagem,
-                    "salvar" => "null"
+                    "salvar" => null
                 ];
 
                 array_push($this->imagens, $data);
@@ -195,7 +196,7 @@ class Edit extends Component
         $data = [
             'id' => 0,
             'caminho_arquivo' => $caminho_arquivo,
-            'salvar'=> true
+            'salvar'=> "sim"
         ];
 
         array_push($this->imagens, $data);
@@ -206,7 +207,7 @@ class Edit extends Component
     public function removerImagem($index, $id_imagem)
     {
         if ($id_imagem != 0) {
-            $this->numeros_disponiveis[$index]['salvar'] = false;
+            $this->imagens[$index]['salvar'] = "nao";
         } else {
             array_splice($this->imagens, $index, 1);
         }
@@ -217,16 +218,19 @@ class Edit extends Component
         $this->validate([
             'nome_produto' => "required|string|max:50",
             'id_categoria' => 'required|exists:categorias,id',
-            'valor' => 'required|numeric'
+            'valor' => 'required|numeric',
+            'numeracao' => 'required'
         ]);
 
         if ($this->nova_imagem_capa == null) {
             $data = [
                 'nome_produto' => $this->nome_produto,
                 'id_categoria' => $this->id_categoria,
-                'valor' => $this->valor,
                 'imagem_capa' => $this->imagem_capa,
                 'informacoes_produto' => $this->informacoes_produto,
+                'valor' => $this->valor,
+                'numeracao' => $this->numeracao,
+                'tipo_tamanho' => $this->medidas,
                 'tabela_medidas' => null
             ];
         } else {
@@ -241,9 +245,11 @@ class Edit extends Component
             $data = [
                 'nome_produto' => $this->nome_produto,
                 'id_categoria' => $this->id_categoria,
-                'valor' => $this->valor,
                 'imagem_capa' => $caminho_arquivo,
                 'informacoes_produto' => $this->informacoes_produto,
+                'valor' => $this->valor,
+                'numeracao' => $this->numeracao,
+                'tipo_tamanho' => $this->medidas,
                 'tabela_medidas' => null
             ];
         }
@@ -257,9 +263,7 @@ class Edit extends Component
                 $this->numeros_disponiveis = null;
 
                 if ($this->nova_tabela_medidas == null) {
-                    $data = [
-                        'tabela_medidas' => $this->tabela_medidas
-                    ];
+                    $data['tabela_medidas'] = $this->tabela_medidas;
                 } else {
                     $this->validate([
                         'nova_tabela_medidas' => ['file', File::types(['png', 'jpg', 'jpeg', 'jpe', 'webp'])]
@@ -269,19 +273,29 @@ class Edit extends Component
                     $this->nova_tabela_medidas->storeAs('public/imagens_produtos', $nome_arquivo);
                     $caminho_arquivo = "storage/imagens_produtos/" . $nome_arquivo;
 
-                    $data = [
-                        'tabela_medidas' => $caminho_arquivo
-                    ];
+                    $data['tabela_medidas'] = $caminho_arquivo;
                 }
             } elseif ($this->medidas == 2) {
                 $this->medidas_disponiveis = null;
+
+                $data['tabela_medidas'] = null;
             }
         } elseif ($this->tamanhos == 0) {
             $this->medidas_disponiveis = null;
             $this->numeros_disponiveis = null;
+
+            $data['tabela_medidas'] = null;
         }
 
-        $response = $this->produto_service->update($data, $this->cores_disponiveis, $this->medidas_disponiveis, $this->numeros_disponiveis, $this->produto);
+        $response = $this->produto_service->update($data, $this->cores_disponiveis, $this->medidas_disponiveis, $this->numeros_disponiveis, $this->imagens, $this->produto);
+
+        if ($response->status() == '200') {
+            session()->flash('success', $response->content());
+            return redirect()->route('produtos.index');
+        } else {
+            session()->flash('error', 'Não foi possível atualizar o produto.');
+            return redirect()->route('produtos.index');
+        }
     }
 
     public function render()

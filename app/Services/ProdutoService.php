@@ -60,11 +60,8 @@ class ProdutoService
         return response("Produto adicionado com sucesso!", 200);
     }
 /*  */
-    public function update($data, $cores, $medidas, $numeros, Produto $produto)
+    public function update($data, $cores, $medidas, $numeros, $imagens, Produto $produto)
     {
-        /* dd($data); */
-        /* dd($cores); */
-        /* dd($tipo_tamanho); */
 
         if (!empty($cores)) {
             foreach ($cores as $cor) {
@@ -114,6 +111,27 @@ class ProdutoService
         } elseif (empty($medidas) && empty($numeros)) {
             $produto->tamanhos()->delete();
         }
+
+        if (!empty($imagens)) {
+            foreach ($imagens as $imagem) {
+                if ($imagem['salvar'] == "sim") {
+                    ImagensProduto::create([
+                        'id_produto' => $produto->id,
+                        'url_imagem' => $imagem['caminho_arquivo']
+                    ]);
+                } elseif ($imagem['salvar'] == "nao") {
+                    ImagensProduto::destroy($imagem['id']);
+                }
+            }
+        } else {
+            $qtd_imagens = count($produto->imagens);
+
+            if ($qtd_imagens != 0) {
+                $produto->imagens()->delete();
+            }
+        }
+
+        $produto->update($data);
 
         return response("Produto atualizado com sucesso!", 200);
     }
