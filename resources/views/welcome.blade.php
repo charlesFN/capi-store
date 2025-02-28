@@ -12,12 +12,40 @@
         .card-produtos:hover {
             transform: scale(1.025);
         }
+
+        .floating-card {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+        }
+        .floating-card:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        /* Estilo do card flutuante */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+           /*  display: none; */
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1050;
+        }
     </style>
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body style="background-color: #F3F4F6">
-    @include('components.custom-components.menu')
+    <livewire:components.menu :categorias="$categorias"/>
 
     @if (!empty($produtos))
     <div class="container mt-3">

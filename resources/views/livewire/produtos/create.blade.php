@@ -226,7 +226,7 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group col-12 d-flex justify-content-end">
-                        <input type="submit" value="Atualizar" class="btn btn-success">
+                        <input type="submit" value="Salvar" class="btn btn-success">
                     </div>
                 </div>
             </form>
