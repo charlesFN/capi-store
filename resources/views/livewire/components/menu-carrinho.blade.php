@@ -29,25 +29,6 @@
             </div>
         </div>
     </nav>
-    @php
-        $numero_categorias = count($categorias);
-    @endphp
-    @if ($numero_categorias > 0)
-        <nav class="navbar" style="background-color: #F3F4F6">
-            <div class="container">
-                <div class="row">
-                    <div>
-                        @foreach ($categorias as $categoria)
-                            <a href="" class="text-decoration-none mx-5 fw-bold" style="color: #1E3A8A">{{ $categoria->nome_categoria }}</a>
-                        @endforeach
-                    </div>
-                    @if($numero_categorias > 5)
-                        <a href="#" class="text-decoration-none mx-5 fw-bold" style="color: #1E3A8A">Mais categorias...</a>
-                    @endif
-                </div>
-            </div>
-        </nav>
-    @endif
 
     <form action="{{ route('logout') }}" method="post" id="formLogout">
         @csrf

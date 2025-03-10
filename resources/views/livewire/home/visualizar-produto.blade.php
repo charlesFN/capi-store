@@ -1,4 +1,5 @@
 <div>
+    {{-- {{ dd(session()->all()) }} --}}
     <div class="container mt-4">
         <div class="row">
             <div class="col-8">
@@ -70,7 +71,7 @@
                 <div class="row mt-5">
                     <div class="col-12">
                         <button @if (Auth::check() == false) onclick="aviso()" @else href="{{ route('carrinho.comprar', ['id_produto' => $produto->id]) }}" @endif class="btn btn-lg btn-primary w-100">Comprar</button>
-                        <button @if (Auth::check() == false) onclick="aviso()" @endif class="btn btn-lg btn-outline-primary w-100 mt-3" @if(Auth::check() == true) data-bs-toggle="modal" data-bs-target="#selecionarQuantidade" @endif>Adicionar ao Carrinho</button>
+                        <button {{-- @if (Auth::check() == false) onclick="aviso()" @endif  --}}class="btn btn-lg btn-outline-primary w-100 mt-3" {{-- @if(Auth::check() == true) --}} data-bs-toggle="modal" data-bs-target="#selecionarQuantidade" {{-- @endif --}}>Adicionar ao Carrinho</button>
                     </div>
                 </div>
             </div>
@@ -90,7 +91,7 @@
                 </div>
             @endif
 
-            @if(Auth::check() == true)
+            {{-- @if(Auth::check() == true) --}}
                 <div class="modal fade" id="selecionarQuantidade" tabindex="-1" wire:ignore.self>
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -101,31 +102,29 @@
                             <div class="modal-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <button @if($qtd_produto == 1) disabled @endif class="btn btn-danger rounded-circle" wire:click="rmvProduto">&minus;</button>
+                                        <button @if($qtd_produto == 1) disabled @endif class="btn btn-danger rounded-circle" wire:click="rmvProduto"><i class="fas fa-minus"></i></button>
                                     </div>
                                     <div>
-                                        <span>{{ $qtd_produto }}</span>
+                                        <span class="fw-bold">{{ $qtd_produto }}</span>
                                     </div>
                                     <div>
-                                        <button class="btn btn-success rounded-circle" wire:click="addProduto">&plus;</button>
+                                        <button class="btn btn-success rounded-circle" wire:click="addProduto"><i class="fas fa-plus"></i></button>
                                     </div>
                                 </div>
                                 <div class="mt-4">
                                     <h3>R$ {{ number_format($valor_venda, 2, ',', '.') }}</h3>
                                 </div>
 
-                                <form action="{{ route('carrinho.adicionar') }}" method="post">
-                                    @csrf
 
-                                    <input type="hidden" name="id_produto" value="{{ $produto->id }}">
-                                    <input type="hidden" name="qtd_produtos" value="{{ $qtd_produto }}">
+                                <button type="button" @if($qtd_produto == 0) disabled @endif wire:click="adicionarAoCarrinho" data-bs-dismiss="modal" class="btn btn-lg btn-dark w-100 mt-4">Adicionar ao Carrinho</button:button>
+                                {{-- <form wire:submit="adicionarAoCarrinho">
                                     <button @if ($qtd_produto == 0) disabled @endif type="submit" class="btn btn-lg btn-dark w-100 mt-4">Adicionar ao Carrinho</button>
-                                </form>
+                                </form> --}}
                             </div>
                         </div>
                     </div>
                 </div>
-            @endif
+            {{-- @endif --}}
         </div>
         @if($produto->informacoes_produto)
             <div class="row mt-5">
@@ -139,7 +138,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script>
+    {{-- <script>
         function aviso()
         {
             Swal.fire({
@@ -148,5 +147,16 @@
                 icon: "warning"
             })
         }
-    </script>
+    </script> --}}
+
+    @if(session()->has('success'))
+        <script>
+            Swal.fire({
+                position: "top-end",
+                text: {{ session('success') }},
+                showConfirmButton: false,
+                timer: 1500
+            });
+        </script>
+    @endif
 </div>

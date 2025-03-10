@@ -11,7 +11,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark py-4 border-bottom">
+    {{-- <nav class="navbar navbar-dark bg-dark py-4 border-bottom">
         <div class="container">
             <a href="#" class="navbar-brand">Logo</a>
             <div>
@@ -20,7 +20,8 @@
                 @endif
             </div>
         </div>
-    </nav>
+    </nav> --}}
+    <livewire:components.menu-carrinho />
 
     <div class="container mt-4">
         <div class="row">

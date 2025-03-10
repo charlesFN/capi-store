@@ -32,14 +32,34 @@
             background-color: #1E3A8A !important;
             color: #fff !important;
         }
+
+        /* Estilo do card flutuante */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+           /*  display: none; */
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1050;
+        }
     </style>
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body style="background-color: #F3F4F6">
-    @include('components.custom-components.menu')
+    <div>
+        <livewire:components.menu :categorias="$categorias"/>
+    </div>
 
-    <livewire:home.visualizar-produto :produto="$produto" :valor_venda="$produto->valor" />
+    <div>
+        <livewire:home.visualizar-produto :produto="$produto" :valor_venda="$produto->valor" />
+    </div>
 
     @include('components.custom-components.footer')
 </body>
