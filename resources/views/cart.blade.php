@@ -23,19 +23,6 @@
     </nav> --}}
     <livewire:components.menu-carrinho />
 
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-8">
-                <div class="card">
-                    <div class="card-body">
-
-                    </div>
-                </div>
-            </div>
-            <div class="col-4">
-
-            </div>
-        </div>
-    </div>
+    <livewire:carrinho.cart />
 </body>
 </html>

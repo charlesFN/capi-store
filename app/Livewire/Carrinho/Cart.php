@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Livewire\Carrinho;
+
+use Livewire\Component;
+
+class Cart extends Component
+{
+    public function subtrairProduto($id_produto)
+    {
+        $carrinho = session()->get('carrinho', []);
+
+        if (isset($carrinho[$id_produto])) {
+            $carrinho[$id_produto]['quantidade'] = $carrinho[$id_produto]['quantidade'] - 1;
+
+            session()->put('carrinho', $carrinho);
+        }
+    }
+
+    public function adicionarProduto($id_produto)
+    {
+        $carrinho = session()->get('carrinho', []);
+
+        if (isset($id_produto)) {
+            $carrinho[$id_produto]['quantidade'] = $carrinho[$id_produto]['quantidade'] + 1;
+        }
+
+        session()->put('carrinho', $carrinho);
+    }
+
+    public function removerProduto($id_produto)
+    {
+        $carrinho = session()->get('carrinho', []);
+
+        if (isset($carrinho[$id_produto])) {
+            unset($carrinho[$id_produto]);
+
+            session()->put('carrinho', $carrinho);
+        }
+    }
+
+    public function render()
+    {
+        return view('livewire.carrinho.cart');
+    }
+}
