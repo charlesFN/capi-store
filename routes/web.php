@@ -6,12 +6,15 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\ShopCartController;
 use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\WebhookController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/visualizar-produto/{id}', [HomeController::class, 'showProduct'])->name('produto.show');
 Route::get('/carrinho', [HomeController::class, 'carrinho'])->name('carrinho');
 
 Route::post('/carrinho/adicionar', [ShopCartController::class, 'addCart'])->name('carrinho.adicionar');
+
+Route::post('/webhook/status-pagamento', [WebhookController::class, 'status_pagamento'])->name('webhooks.status_pagamento');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
