@@ -14,6 +14,15 @@ return [
     |
     */
 
+    'mercadopago' => [
+        'public_key_prod' => env('MERCADOPAGO_PUBLIC_KEY_PROD'),
+        'access_token_prod' => env('MERCADOPAGO_ACCESS_TOKEN_PROD'),
+        'app_id' => env('MERCADOPAGO_APP_ID'),
+        'client_secret' => env('MERCADOPAGO_CLIENT_SECRET'),
+        'api_url' => env('MERCADOPAGO_API_URL'),
+        #'redirect_url' => env('MERCADOPAGO_REDIRECT_URL')
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],

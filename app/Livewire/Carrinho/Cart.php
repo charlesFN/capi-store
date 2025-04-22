@@ -39,6 +39,17 @@ class Cart extends Component
         }
     }
 
+    public function comprar()
+    {
+        if (auth()->user() == null) {
+            return redirect()->route('login');
+        }
+
+        $carrinho = session()->get('carrinho', []);
+
+        dd($carrinho);
+    }
+
     public function render()
     {
         return view('livewire.carrinho.cart');

@@ -1,7 +1,7 @@
 <div>
-    <nav class="navbar navbar-expand-lg border-bottom" style="background-color: #F59E0B">
+    <nav class="navbar border-bottom px-5" style="background-color: #F59E0B">
         <div class="container-fluid">
-            <a href="{{ route('home') }}" class="navbar-brand">
+            <a href="{{ route('home') }}" class="navbar-brand mx-4">
                 <img src="{{ asset('img/logo-site.png') }}" alt="" width="90" height="90">
             </a>
             <div class="mx-auto position-relative w-50">
@@ -24,7 +24,16 @@
                     <span class="text-light mx-1">|</span>
                     <a href="#" class="text-decoration-none text-light mx-1" onclick="logout()"><i class="fas fa-power-off"></i> Sair</a>
                 @elseif (Auth::check() == false)
-                    <a href="{{ route('login') }}" class="text-decoration-none text-light mx-1">Entre</a> <span class="text-light">ou</span> <a href="{{ route('register') }}" class="text-decoration-none text-light mx-1">Cadastre-se</a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <a href="{{ route('login') }}" class="text-decoration-none text-light mx-1">Entre</a>
+                            <span class="text-light">ou</span>
+                            <a href="{{ route('register') }}" class="text-decoration-none text-light mx-1">Cadastre-se</a>
+                        </div>
+                        <div>
+                            <a href="{{ route('carrinho') }}" class="text-decoration-none text-light mx-4"><i class="fas fa-cart-shopping"></i></a>
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>

@@ -53,7 +53,8 @@
                                 @endforeach
                                 <h5>R$ {{ number_format($valor_total, 2, ',', '.') }}</h5>
                             </div>
-                            <button class="btn btn-lg btn-success w-100 mt-4">Comprar</button>
+
+                            <button wire:click="comprar" class="btn btn-lg btn-success w-100 mt-4">Comprar</button>
                         </div>
                     </div>
                 </div>
