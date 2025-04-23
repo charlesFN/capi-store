@@ -2,10 +2,18 @@
 
 namespace App\Livewire\Carrinho;
 
+use App\Services\MercadoPagoService;
 use Livewire\Component;
 
 class Cart extends Component
 {
+    private $mercado_pago_service;
+
+    public function boot(MercadoPagoService $mercadoPagoService)
+    {
+        $this->mercado_pago_service = $mercadoPagoService;
+    }
+
     public function subtrairProduto($id_produto)
     {
         $carrinho = session()->get('carrinho', []);
@@ -47,7 +55,7 @@ class Cart extends Component
 
         $carrinho = session()->get('carrinho', []);
 
-        dd($carrinho);
+        $this->mercado_pago_service->efetuarPagamento($carrinho);
     }
 
     public function render()

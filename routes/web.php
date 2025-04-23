@@ -29,7 +29,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/categorias/update/{categoria}', [CategoriasController::class,'update'])->name('categorias.update');
     Route::delete('/categorias/delete/', [CategoriasController::class, 'destroy'])->name('categorias.delete');
 
-    /* Route::get('/carrinho/comprar/{id_produto}', [ShopCartController::class, 'comprar'])->name('carrinho.comprar'); */
+    Route::get('/carrinho/comprar/{id_produto}', [ShopCartController::class, 'comprar'])->name('carrinho.comprar');
 
     Route::get('/produtos', [ProdutosController::class, 'index'])->name('produtos.index');
     Route::get('/produtos/create', [ProdutosController::class, 'create'])->name('produtos.create');

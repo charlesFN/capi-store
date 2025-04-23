@@ -1,5 +1,4 @@
 <div>
-    {{-- {{ dd(session('carrinho')) }} --}}
     <div class="container mt-4">
         <div class="row">
             <div class="col-8">
