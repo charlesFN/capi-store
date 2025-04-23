@@ -33,6 +33,12 @@ class MercadopagoService
             "items"=> $itens
         ]);
 
+        $preference->back_urls = array(
+            'success' => 'https://capi-store.laravel.cloud/pagamento-aprovado',
+            'failure' => 'https://capi-store.laravel.cloud/erro-pagamento',
+            'pending' => 'https://capi-store.laravel.cloud/pagamento-pendente'
+        );
+
         dd($preference);
     }
 }

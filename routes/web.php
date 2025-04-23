@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VendaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\ProdutosController;
@@ -11,6 +12,10 @@ use App\Http\Controllers\CategoriasController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/visualizar-produto/{id}', [HomeController::class, 'showProduct'])->name('produto.show');
 Route::get('/carrinho', [HomeController::class, 'carrinho'])->name('carrinho');
+
+Route::get('/pagamento-aprovado', [VendaController::class, 'pagamento_aprovado'])->name('vendas.pagamento_aprovado');
+Route::get('/pagamento-pendente', [VendaController::class, 'pagamento_pendente'])->name('vendas.pagamento_pendente');
+Route::get('/erro-pagamento', [VendaController::class, 'erro_pagamento'])->name('vendas.erro_pagamento');
 
 Route::post('/carrinho/adicionar', [ShopCartController::class, 'addCart'])->name('carrinho.adicionar');
 
