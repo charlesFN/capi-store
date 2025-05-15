@@ -39,6 +39,6 @@ class MercadopagoService
             'pending' => 'https://capi-store.laravel.cloud/pagamento-pendente'
         );
 
-        dd($preference);
+        return $preference;
     }
 }

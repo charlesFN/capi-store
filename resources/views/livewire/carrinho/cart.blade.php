@@ -54,23 +54,12 @@
                             </div>
 
                             <div id="wallet_container"></div>
-                            {{-- <button wire:click="comprar" class="btn btn-lg btn-success w-100 mt-4">Comprar</button> --}}
+
+                            <a href="{{ route('carrinho.pagamento') }}" class="btn btn-success w-100 mt-4">Ir para o pagamento</a>
                         </div>
                     </div>
                 </div>
             @endif
         </div>
     </div>
-
-    <script>
-        const mp = new MercadoPago('APP_USR-0ab9d3ce-2b8d-42b9-9c4c-b7e9cbe64adc');
-
-        console.log(mp);
-
-        mp.bricks().create("wallet", "wallet_container", {
-            initialization: {
-                preferenceId: '448867167-bbec2962-4f24-43cc-b83a-a82026fad923'
-            }
-        })
-    </script>
 </div>

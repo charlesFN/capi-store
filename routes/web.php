@@ -2,24 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\VendaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\ProdutosController;
-use App\Http\Controllers\ShopCartController;
+use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\CategoriasController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/visualizar-produto/{id}', [HomeController::class, 'showProduct'])->name('produto.show');
 Route::get('/carrinho', [HomeController::class, 'carrinho'])->name('carrinho');
 
-Route::get('/pagamento-aprovado', [VendaController::class, 'pagamento_aprovado'])->name('vendas.pagamento_aprovado');
-Route::get('/pagamento-pendente', [VendaController::class, 'pagamento_pendente'])->name('vendas.pagamento_pendente');
-Route::get('/erro-pagamento', [VendaController::class, 'erro_pagamento'])->name('vendas.erro_pagamento');
-
-Route::post('/carrinho/adicionar', [ShopCartController::class, 'addCart'])->name('carrinho.adicionar');
+/* Route::post('/carrinho/adicionar', [ShopCartController::class, 'addCart'])->name('carrinho.adicionar'); */
 
 Route::post('/webhook/status-pagamento', [WebhookController::class, 'status_pagamento'])->name('webhooks.status_pagamento');
+
+Route::get('/pagamento-aprovado', [WebhookController::class, 'pagamento_aprovado'])->name('vendas.pagamento_aprovado');
+Route::get('/pagamento-pendente', [WebhookController::class, 'pagamento_pendente'])->name('vendas.pagamento_pendente');
+Route::get('/erro-pagamento', [WebhookController::class, 'erro_pagamento'])->name('vendas.erro_pagamento');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,7 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/categorias/update/{categoria}', [CategoriasController::class,'update'])->name('categorias.update');
     Route::delete('/categorias/delete/', [CategoriasController::class, 'destroy'])->name('categorias.delete');
 
-    Route::get('/carrinho/comprar/{id_produto}', [ShopCartController::class, 'comprar'])->name('carrinho.comprar');
+    /* Route::get('/carrinho/comprar/{id_produto}', [CarrinhoController::class, 'comprar'])->name('carrinho.comprar'); */
+
+    Route::get('/carrinho/pagamento', [CarrinhoController::class, 'pagamento'])->name('carrinho.pagamento');
 
     Route::get('/produtos', [ProdutosController::class, 'index'])->name('produtos.index');
     Route::get('/produtos/create', [ProdutosController::class, 'create'])->name('produtos.create');
