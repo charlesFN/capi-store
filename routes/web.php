@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/produtos/delete/', [ProdutosController::class, 'destroy'])->name('produtos.delete');
 
     Route::get('/modalidades', [ModalidadesController::class, 'index'])->name('modalidades.index');
+    Route::get('/modalidades/create', [ModalidadesController::class, 'create'])->name('modalidades.create');
+    Route::post('/modalidades/store', [ModalidadesController::class,'store'])->name('modalidades.store');
 });
 
 require __DIR__.'/auth.php';

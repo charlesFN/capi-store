@@ -6,7 +6,7 @@
     <h3 class="py-3 d-flex justify-content-between">
         Todas as Modalidades
 
-        <a {{-- href="{{ route('categorias.create') }}"  --}}class="btn btn-success"><i class="fas fa-plus mr-2"></i><span>Criar Modalidade</span></a>
+        <a href="{{ route('modalidades.create') }}" class="btn btn-success"><i class="fas fa-plus mr-2"></i><span>Criar Modalidade</span></a>
     </h3>
     <div class="card">
         <div class="card-body">
@@ -14,25 +14,25 @@
                 <table class="table table-hover">
                     <thead>
                         <th>Modalidade</th>
-                        <th>Qtd. Clientes</th>
-                        <th>Opções</th>
+                        {{-- <th>Qtd. Clientes</th> --}}
+                        {{-- <th>Opções</th> --}}
                     </thead>
                     <tbody>
-                        {{-- @forelse ($categorias as $categoria)
+                        @forelse ($modalidades as $modalidade)
                             <tr>
-                                <td>{{ $categoria->nome_categoria }}</td>
-                                <td>{{ count($categoria->produtos) }}</td>
+                                <td>{{ $modalidade->nome_modalidade }}</td>
+                                {{-- <td>{{ count($modalidade->produtos) }}</td> --}}
                                 <td class="d-flex">
-                                    <a href="{{ route('categorias.show', ['categoria' => $categoria]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('categorias.edit', ['categoria' => $categoria]) }}" class="btn btn-warning mx-2"><i class="fas fa-edit"></i></a>
-                                    <button @if(count($categoria->produtos) > 0) onclick="alertaCategoria()" @else onclick="excluirCategoria(`{{ $categoria->id }}`)" @endif class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    {{-- <a href="{{ route('modalidade.show', ['modalidade' => $modalidade]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a> --}}
+                                    {{-- <a href="{{ route('modalidade.edit', ['modalidade' => $modalidade]) }}" class="btn btn-warning mx-2"><i class="fas fa-edit"></i></a> --}}
+                                    {{-- <button @if(count($modalidade->produtos) > 0) onclick="alertaCategoria()" @else onclick="excluirCategoria(`{{ $modalidade->id }}`)" @endif class="btn btn-danger"><i class="fas fa-trash"></i></button> --}}
                                 </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="3">Nenhum registro encontrado.</td>
                             </tr>
-                        @endforelse --}}
+                        @endforelse
                     </tbody>
                     <tfoot>
 
@@ -50,17 +50,17 @@
         <input type="hidden" name="id_categoria" id="idCategoria">
     </form> --}}
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    {{-- <script>
-        function alertaCategoria() {
+    <script>
+        /* function alertaCategoria() {
             Swal.fire({
                 title: "Atenção!",
                 text: "Há um ou mais produtos nesta categoria, portanto ela não pode ser deletada",
                 icon: 'warning'
             })
-        }
-        function excluirCategoria(idCategoria) {
+        } */
+        /* function excluirCategoria(idCategoria) {
             Swal.fire({
                 title: "Deseja deletar esta categoria?",
                 text: "Você não será capaz de reverter isto!",
@@ -76,10 +76,10 @@
                     $("#excluirCategoria").submit();
                 }
             })
-        }
-    </script> --}}
+        } */
+    </script>
 
-   {{--  @if (session('error'))
+    @if (session('error'))
         <script>
             Swal.fire({
                 title: "Atenção!",
@@ -87,8 +87,8 @@
                 icon: "error"
             })
         </script>
-    @endif --}}
-    {{-- @if (session('success'))
+    @endif
+    @if (session('success'))
         <script>
             Swal.fire({
                 title: "Atenção!",
@@ -96,5 +96,5 @@
                 icon: "success"
             })
         </script>
-    @endif --}}
+    @endif
 @endsection
