@@ -70,13 +70,21 @@ class ModalidadesController extends Controller
             return redirect()->route('modalidades.index');
         }
         else {
-            session()->flash('error', 'Não foi possível atualizar a categoria.');
+            session()->flash('error', 'Não foi possível atualizar a modalidade.');
             return redirect()->route('modalidades.index');
         }
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $response = $this->modalidade_service->delete($request->id_modalidade);
+
+        if ($response->status() == 200) {
+            session()->flash('success', $response->content());
+            return redirect()->route('modalidades.index');
+        } else {
+            session()->flash('error', 'Não foi possível deletar a modalidade.');
+            return redirect()->route('modalidades.index');
+        }
     }
 }

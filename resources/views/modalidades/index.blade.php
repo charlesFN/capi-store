@@ -25,7 +25,7 @@
                                 <td class="d-flex">
                                     <a href="{{ route('modalidades.show', ['modalidade' => $modalidade]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('modalidades.edit', ['modalidade' => $modalidade]) }}" class="btn btn-warning mx-2"><i class="fas fa-edit"></i></a>
-                                    {{-- <button @if(count($modalidade->produtos) > 0) onclick="alertaCategoria()" @else onclick="excluirCategoria(`{{ $modalidade->id }}`)" @endif class="btn btn-danger"><i class="fas fa-trash"></i></button> --}}
+                                    <button {{-- @if(count($modalidade->produtos) > 0) onclick="alertaCategoria()" @else  --}}onclick="excluirModalidade(`{{ $modalidade->id }}`)" {{-- @endif --}} class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                         @empty
@@ -42,13 +42,13 @@
         </div>
     </div>
 
-    {{-- Formulário de exclusão de categoria --}}
-   {{--  <form action="{{ route('categorias.delete') }}" method="post" id="excluirCategoria">
+    {{-- Formulário de exclusão de modalidade --}}
+    <form action="{{ route('modalidades.delete') }}" method="post" id="excluirModalidade">
         @csrf
         @method('DELETE')
 
-        <input type="hidden" name="id_categoria" id="idCategoria">
-    </form> --}}
+        <input type="hidden" name="id_modalidade" id="idModalidade">
+    </form>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -60,9 +60,9 @@
                 icon: 'warning'
             })
         } */
-        /* function excluirCategoria(idCategoria) {
+        function excluirModalidade(idModalidade) {
             Swal.fire({
-                title: "Deseja deletar esta categoria?",
+                title: "Deseja deletar esta modalidade?",
                 text: "Você não será capaz de reverter isto!",
                 icon: "warning",
                 showCancelButton: true,
@@ -72,11 +72,11 @@
                 cancelButtonText: "Não, cancelar!"
             }).then((result) => {
                 if(result.isConfirmed) {
-                    document.getElementById('idCategoria').value = idCategoria;
-                    $("#excluirCategoria").submit();
+                    document.getElementById('idModalidade').value = idModalidade;
+                    $("#excluirModalidade").submit();
                 }
             })
-        } */
+        }
     </script>
 
     @if (session('error'))

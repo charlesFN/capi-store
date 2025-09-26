@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/modalidades/show/{modalidade}', [ModalidadesController::class, 'show'])->name('modalidades.show');
     Route::get('/modalidades/edit/{modalidade}', [ModalidadesController::class, 'edit'])->name('modalidades.edit');
     Route::put('/modalidades/update/{modalidade}', [ModalidadesController::class, 'update'])->name('modalidades.update');
+    Route::delete('/modalidades/delete/', [ModalidadesController::class, 'destroy'])->name('modalidades.delete');
 });
 
 require __DIR__.'/auth.php';
