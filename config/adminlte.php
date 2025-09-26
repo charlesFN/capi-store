@@ -311,6 +311,10 @@ return [
             'url' => '/produtos',
             'icon' => 'fas fa-solid fa-list',
             'can' => 'gestao-produtos'
+        ],
+        [
+            'text' => 'Modalidades',
+            'url' => '/modalidades',
         ]
         /* [
             'type' => 'navbar-search',

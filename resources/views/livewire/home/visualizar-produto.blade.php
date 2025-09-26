@@ -70,7 +70,7 @@
                 @endif
                 <div class="row mt-5">
                     <div class="col-12">
-                        <button @if (Auth::check() == false) onclick="aviso()" @else href="{{ route('carrinho.comprar', ['id_produto' => $produto->id]) }}" @endif class="btn btn-lg btn-primary w-100">Comprar</button>
+                        {{-- <button @if (Auth::check() == false) onclick="aviso()" @else href="{{ route('carrinho.comprar', ['id_produto' => $produto->id]) }}" @endif class="btn btn-lg btn-primary w-100">Comprar</button> --}}
                         <button {{-- @if (Auth::check() == false) onclick="aviso()" @endif  --}}class="btn btn-lg btn-outline-primary w-100 mt-3" {{-- @if(Auth::check() == true) --}} data-bs-toggle="modal" data-bs-target="#selecionarQuantidade" {{-- @endif --}}>Adicionar ao Carrinho</button>
                     </div>
                 </div>

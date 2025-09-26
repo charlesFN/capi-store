@@ -7,6 +7,7 @@ use App\Http\Controllers\WebhookController;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\ModalidadesController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/visualizar-produto/{id}', [HomeController::class, 'showProduct'])->name('produto.show');
@@ -44,6 +45,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/produtos/edit/{produto}', [ProdutosController::class, 'edit'])->name('produtos.edit');
     Route::put('/produtos/update/{produto}', [ProdutosController::class, 'update'])->name('produtos.update');
     Route::delete('/produtos/delete/', [ProdutosController::class, 'destroy'])->name('produtos.delete');
+
+    Route::get('/modalidades', [ModalidadesController::class, 'index'])->name('modalidades.index');
 });
 
 require __DIR__.'/auth.php';
