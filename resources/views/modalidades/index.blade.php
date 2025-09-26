@@ -24,7 +24,7 @@
                                 {{-- <td>{{ count($modalidade->produtos) }}</td> --}}
                                 <td class="d-flex">
                                     <a href="{{ route('modalidades.show', ['modalidade' => $modalidade]) }}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                    {{-- <a href="{{ route('modalidade.edit', ['modalidade' => $modalidade]) }}" class="btn btn-warning mx-2"><i class="fas fa-edit"></i></a> --}}
+                                    <a href="{{ route('modalidades.edit', ['modalidade' => $modalidade]) }}" class="btn btn-warning mx-2"><i class="fas fa-edit"></i></a>
                                     {{-- <button @if(count($modalidade->produtos) > 0) onclick="alertaCategoria()" @else onclick="excluirCategoria(`{{ $modalidade->id }}`)" @endif class="btn btn-danger"><i class="fas fa-trash"></i></button> --}}
                                 </td>
                             </tr>

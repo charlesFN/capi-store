@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Modalidade;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Services\ModalidadeService;
 
 class ModalidadesController extends Controller
@@ -51,14 +52,27 @@ class ModalidadesController extends Controller
         ]);
     }
 
-    public function edit($id)
+    public function edit(Modalidade $modalidade)
     {
-        //
+        return view( 'modalidades.edit', compact('modalidade'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Modalidade $modalidade)
     {
-        //
+        $data = $request->validate([
+            'nome_modalidade' => ['required', Rule::unique('modalidades')->ignore($modalidade->id), 'string','max:50']
+        ]);
+
+        $response = $this->modalidade_service->update($data, $modalidade);
+
+        if ($response->status() == 200) {
+            session()->flash('success', $response->content());
+            return redirect()->route('modalidades.index');
+        }
+        else {
+            session()->flash('error', 'Não foi possível atualizar a categoria.');
+            return redirect()->route('modalidades.index');
+        }
     }
 
     public function destroy($id)
