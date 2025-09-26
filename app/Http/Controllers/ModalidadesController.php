@@ -44,9 +44,11 @@ class ModalidadesController extends Controller
         }
     }
 
-    public function show($id)
+    public function show(Modalidade $modalidade)
     {
-        //
+        return view('modalidades.show', [
+            'modalidade' => $modalidade
+        ]);
     }
 
     public function edit($id)

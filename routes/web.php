@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/modalidades', [ModalidadesController::class, 'index'])->name('modalidades.index');
     Route::get('/modalidades/create', [ModalidadesController::class, 'create'])->name('modalidades.create');
     Route::post('/modalidades/store', [ModalidadesController::class,'store'])->name('modalidades.store');
+    Route::get('/modalidades/show/{modalidade}', [ModalidadesController::class, 'show'])->name('modalidades.show');
 });
 
 require __DIR__.'/auth.php';
