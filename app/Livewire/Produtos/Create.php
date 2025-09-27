@@ -28,6 +28,7 @@ class Create extends Component
     public $tamanhos = 0;
     public $medidas = 1;
     public $numeracao = 0;
+    public $nome_cliente = 0;
 
     public $tabela_medidas;
 
@@ -142,6 +143,7 @@ class Create extends Component
             'imagem_capa' => $caminho_arquivo,
             'informacoes_produto' => $this->informacoes_produto,
             'numeracao' => $this->numeracao,
+            'nome_cliente' => $this->nome_cliente,
             'tabela_medidas' => $file_path
         ];
 

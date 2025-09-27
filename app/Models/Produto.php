@@ -17,7 +17,8 @@ class Produto extends Model
         "numeracao",
         "valor",
         "tabela_medidas",
-        "tipo_tamanho"
+        "tipo_tamanho",
+        "nome_cliente"
     ];
 
     public function categoria()

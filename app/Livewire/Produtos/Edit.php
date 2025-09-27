@@ -46,6 +46,7 @@ class Edit extends Component
 
 
     public $numeracao;
+    public $nome_cliente;
 
 
 
@@ -69,6 +70,7 @@ class Edit extends Component
         $this->imagem_capa = $this->produto->imagem_capa;
         $this->tabela_medidas = $this->produto->tabela_medidas;
         $this->numeracao = $this->produto->numeracao;
+        $this->nome_cliente = $this->produto->nome_cliente;
 
         if (!empty($this->produto->informacoes_produto)) {
             $this->informacoes_produto = $this->produto->informacoes_produto;
@@ -219,7 +221,8 @@ class Edit extends Component
             'nome_produto' => "required|string|max:50",
             'id_categoria' => 'required|exists:categorias,id',
             'valor' => 'required|numeric',
-            'numeracao' => 'required'
+            'numeracao' => 'required',
+            'nome_cliente' => 'required',
         ]);
 
         if ($this->nova_imagem_capa == null) {
@@ -230,6 +233,7 @@ class Edit extends Component
                 'informacoes_produto' => $this->informacoes_produto,
                 'valor' => $this->valor,
                 'numeracao' => $this->numeracao,
+                'nome_cliente' => $this->nome_cliente,
                 'tipo_tamanho' => $this->medidas,
                 'tabela_medidas' => null
             ];
@@ -249,6 +253,7 @@ class Edit extends Component
                 'informacoes_produto' => $this->informacoes_produto,
                 'valor' => $this->valor,
                 'numeracao' => $this->numeracao,
+                'nome_cliente' => $this->nome_cliente,
                 'tipo_tamanho' => $this->medidas,
                 'tabela_medidas' => null
             ];

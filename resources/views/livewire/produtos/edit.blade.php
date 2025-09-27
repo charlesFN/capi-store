@@ -219,6 +219,22 @@
                 </div>
                 <hr>
 
+                <div class="form-group">
+                    <label for="">Nome do cliente</label>
+                    <div class="d-flex w-100">
+                        <div class="form-check my-2 mr-2 border rounded-lg w-50">
+                            <label class="form-check-label p-2 w-100">
+                                <input type="radio" id="nomeCliente" class="form-check-input" value="1" wire:model.live="nome_cliente">Sim
+                            </label>
+                        </div>
+                        <div class="form-check my-2 mr-2 border rounded-lg w-50">
+                            <label class="form-check-label p-2 w-100">
+                                <input type="radio" id="nomeCliente" class="form-check-input" value="0" wire:model.live="nome_cliente">Não
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
                 <h4>Imagens do Produto</h4>
 
                 @if (!empty($imagens))
