@@ -45,7 +45,9 @@ class VisualizarProduto extends Component
                 'nome' => $this->produto->nome_produto,
                 'preco' => $this->produto->valor,
                 'quantidade' => $this->qtd_produto,
-                'imagem' => $this->produto->imagem_capa
+                'imagem' => $this->produto->imagem_capa,
+                'numeracao' => $this->produto->numeracao,
+                'nome_cliente' => $this->produto->nome_cliente,
             ];
         }
 

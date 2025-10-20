@@ -53,9 +53,13 @@
                                 <h5>R$ {{ number_format($valor_total, 2, ',', '.') }}</h5>
                             </div>
 
-                            <div id="wallet_container"></div>
+                            @if($this->personalizavel == false)
+                                <div id="wallet_container"></div>
 
-                            <a href="{{ route('carrinho.pagamento') }}" class="btn btn-success w-100 mt-4">Ir para o pagamento</a>
+                                <a href="{{ route('carrinho.pagamento') }}" class="btn btn-success w-100 mt-4">Ir para o pagamento</a>
+                            @else
+                                <a href="{{ route('vendas.personalizar_produto') }}" class="btn btn-primary w-100 mt-4">Personalizar Produto (s)</a>
+                            @endif
                         </div>
                     </div>
                 </div>

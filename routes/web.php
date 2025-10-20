@@ -1,13 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\CategoriasController;
+use App\Http\Controllers\CarrinhoController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ModalidadesController;
+use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebhookController;
-use App\Http\Controllers\ProdutosController;
-use App\Http\Controllers\CarrinhoController;
-use App\Http\Controllers\CategoriasController;
-use App\Http\Controllers\ModalidadesController;
+use App\Http\Controllers\VendasController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/visualizar-produto/{id}', [HomeController::class, 'showProduct'])->name('produto.show');
@@ -53,6 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/modalidades/edit/{modalidade}', [ModalidadesController::class, 'edit'])->name('modalidades.edit');
     Route::put('/modalidades/update/{modalidade}', [ModalidadesController::class, 'update'])->name('modalidades.update');
     Route::delete('/modalidades/delete/', [ModalidadesController::class, 'destroy'])->name('modalidades.delete');
+
+    Route::get('/personalizar-produto', [VendasController::class, 'personalizar_produto'])->name('vendas.personalizar_produto');
 });
 
 require __DIR__.'/auth.php';

@@ -6,6 +6,25 @@ use Livewire\Component;
 
 class Cart extends Component
 {
+    public $personalizavel;
+
+    public function mount()
+    {
+        $qtd_personalizavel = 0;
+
+        foreach (session()->get('carrinho', []) as $key => $produto) {
+            if ($produto['numeracao'] == true || $produto['nome_cliente'] == true) {
+                $qtd_personalizavel++;
+            }
+        }
+
+        if ($qtd_personalizavel > 0) {
+            $this->personalizavel = true;
+        } else {
+            $this->personalizavel = false;
+        }
+    }
+
     public function subtrairProduto($id_produto)
     {
         $carrinho = session()->get('carrinho', []);
