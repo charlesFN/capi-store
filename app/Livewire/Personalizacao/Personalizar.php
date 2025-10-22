@@ -10,6 +10,8 @@ class Personalizar extends Component
     public $modalidades;
 
     public $participa_modalidade = false;
+    public $deseja_nome = false;
+    public $deseja_numero = false;
 
     public $numero;
     public $nome;
@@ -37,6 +39,16 @@ class Personalizar extends Component
                 $this->nome = true;
             }
         }
+    }
+
+    public function ir_pagamento()
+    {
+        session()->put('customizacoes', [
+            'nome_cliente' => $this->nome,
+            'numeracao' => $this->numero,
+        ]);
+
+        return redirect()->route('carrinho.pagamento');
     }
 
     public function render()
