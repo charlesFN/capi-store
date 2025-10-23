@@ -39,7 +39,7 @@ class MercadopagoService
             'pending' => 'https://capi-store.laravel.cloud/pagamento-pendente'
         );
 
-        $preference->external_reference = auth()->user()->id;
+        $preference->external_reference = auth()->user()->id.','.session('customizacoes')['nome_cliente'].','.session('customizacoes')['numeracao'];
 
         return $preference;
     }
